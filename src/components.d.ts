@@ -23,12 +23,10 @@ declare module 'vue' {
     FaqSection: typeof import('./components/sections/FaqSection.vue')['default']
     HeroSection: typeof import('./components/sections/HeroSection.vue')['default']
     LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
-    NavigationComponent: typeof import('./components/NavigationComponent.vue')['default']
     PortfolioSection: typeof import('./components/sections/PortfolioSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SectionTitle: typeof import('./components/ui/SectionTitle.vue')['default']
-    TheFooterComponent: typeof import('./components/TheFooterComponent.vue')['default']
     Toast: typeof import('./components/Toast.vue')['default']
   }
 }
