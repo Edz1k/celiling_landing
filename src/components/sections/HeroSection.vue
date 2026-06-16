@@ -2,6 +2,7 @@
   <section id="hero" class="hero-section">
     <AppContainer>
       <div class="hero-section__grid">
+        <!-- Левая колонка: основной оффер, текст и кнопки -->
         <div class="hero-section__content">
           <p class="hero-section__badge">
             Бесплатный замер сегодня
@@ -15,6 +16,7 @@
             Аккуратный монтаж под ключ, понятная смета после замера и гарантия на материалы и работы.
           </p>
 
+          <!-- Основные действия пользователя -->
           <div class="hero-section__actions">
             <AppButton href="#contacts">
               Рассчитать стоимость
@@ -31,6 +33,7 @@
           </ul>
         </div>
 
+        <!-- Правая колонка: временная декоративная сцена, позже можно заменить на фото/галерею -->
         <div class="hero-section__visual" aria-hidden="true">
           <div class="hero-section__room">
             <div class="hero-section__light-line" />
@@ -48,6 +51,7 @@
 </template>
 
 <style scoped>
+/* Главный экран: здесь подключен фоновый WebP из src/assets/images/hero */
 .hero-section {
   padding: 72px 0 86px;
   background:
@@ -55,6 +59,7 @@
     url('../../assets/images/hero/background.webp') center / cover no-repeat;
 }
 
+/* Две колонки на desktop: контент слева, визуал справа */
 .hero-section__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
@@ -132,6 +137,7 @@
   min-width: 0;
 }
 
+/* Временная карточка-визуал. Когда будет реальное фото, этот блок можно упростить */
 .hero-section__room {
   position: relative;
   min-height: 460px;
@@ -201,6 +207,7 @@
   line-height: 1;
 }
 
+/* Планшет и мобильные: перестраиваем hero в одну колонку */
 @media (max-width: 900px) {
   .hero-section {
     padding: 48px 0 64px;
@@ -215,6 +222,7 @@
   }
 }
 
+/* Маленькие экраны: кнопки на всю ширину, визуал ниже и компактнее */
 @media (max-width: 520px) {
   .hero-section__actions,
   .hero-section__actions :deep(.app-button) {
