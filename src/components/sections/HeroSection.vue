@@ -51,8 +51,8 @@
 .hero-section {
   padding: 72px 0 86px;
   background:
-    radial-gradient(circle at 72% 18%, rgba(201, 154, 75, 0.16), transparent 30%),
-    linear-gradient(135deg, #fffaf2 0%, #f5eee4 100%);
+    linear-gradient(90deg, rgba(255, 250, 242, 0.96), rgba(255, 250, 242, 0.42)),
+    url('../../assets/images/hero/background.webp') center / cover no-repeat;
 }
 
 .hero-section__grid {
