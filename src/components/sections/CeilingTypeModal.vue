@@ -73,10 +73,11 @@ onBeforeUnmount(() => {
 
           <!-- Верх модалки: слева визуальный placeholder, справа информация о материале -->
           <div class="catalog-modal__hero">
-            <div class="catalog-modal__image" :style="{ background: type.image.gradient }" :aria-label="type.image.alt">
-              <div class="catalog-modal__image-card">
+            <div class="catalog-modal__image" :style="{ background: type.fallbackGradient }">
+              <img v-if="type.image" :src="type.image" :alt="type.imageAlt">
+              <div v-else class="catalog-modal__image-card">
                 <span>{{ type.title.slice(0, 1) }}</span>
-                <p>{{ type.image.alt }}</p>
+                <p>{{ type.imageAlt }}</p>
               </div>
             </div>
 
@@ -243,18 +244,29 @@ onBeforeUnmount(() => {
   padding: 22px;
 }
 
+.catalog-modal__image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .catalog-modal__image::before {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, transparent 25%, rgba(31, 31, 31, 0.18)),
-    radial-gradient(circle at 75% 18%, rgba(255, 255, 255, 0.58), transparent 28%);
+    linear-gradient(180deg, transparent 28%, rgba(31, 31, 31, 0.2)),
+    radial-gradient(circle at 75% 18%, rgba(255, 255, 255, 0.2), transparent 30%);
   content: '';
+  z-index: 1;
+  pointer-events: none;
 }
 
 .catalog-modal__image-card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   gap: 8px;
   width: min(100%, 230px);

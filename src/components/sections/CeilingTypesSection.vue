@@ -36,8 +36,9 @@ function closeMaterial() {
           @keydown.enter.prevent="openMaterial(type)"
           @keydown.space.prevent="openMaterial(type)"
         >
-          <div class="ceiling-types-section__image" :style="{ background: type.image.gradient }" aria-hidden="true">
-            <span>{{ type.title.slice(0, 1) }}</span>
+          <div class="ceiling-types-section__image" :style="{ background: type.fallbackGradient }">
+            <img v-if="type.image" :src="type.image" :alt="type.imageAlt">
+            <span v-else>{{ type.title.slice(0, 1) }}</span>
           </div>
 
           <div class="ceiling-types-section__body">
@@ -102,23 +103,30 @@ function closeMaterial() {
 /* Временная зона под будущие фотографии потолков */
 .ceiling-types-section__image {
   position: relative;
-  display: grid;
-  height: 178px;
-  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
 }
 
 .ceiling-types-section__image::after {
   position: absolute;
-  inset: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 22px;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(31, 31, 31, 0.12));
   content: '';
+  pointer-events: none;
+}
+
+.ceiling-types-section__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .ceiling-types-section__image span {
-  position: relative;
-  z-index: 1;
   display: grid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 64px;
   height: 64px;
   place-items: center;
@@ -127,6 +135,7 @@ function closeMaterial() {
   color: var(--landing-gold-dark);
   font-size: 28px;
   font-weight: 600;
+  transform: translate(-50%, -50%);
 }
 
 .ceiling-types-section__body {
