@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Список вопросов вынесен в data-файл, чтобы быстро менять FAQ без правки верстки
 import { faqItems } from '~/data/faq'
 </script>
 
@@ -11,6 +12,7 @@ import { faqItems } from '~/data/faq'
         subtitle="Блок закроет типовые сомнения перед заявкой: сроки, мебель, гарантия, запах и порядок оплаты."
       />
 
+      <!-- Вопросы и ответы строятся из src/data/faq.ts -->
       <div class="faq-section__list">
         <article v-for="item in faqItems" :key="item.question" class="faq-section__item">
           <h3>{{ item.question }}</h3>
@@ -22,11 +24,13 @@ import { faqItems } from '~/data/faq'
 </template>
 
 <style scoped>
+/* FAQ закрывает типовые сомнения перед заявкой */
 .faq-section {
   padding: 82px 0;
   background: var(--landing-milk);
 }
 
+/* Desktop: два вопроса в ряд */
 .faq-section__list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -56,6 +60,7 @@ import { faqItems } from '~/data/faq'
   margin: 0;
 }
 
+/* Mobile: вопросы идут одной колонкой */
 @media (max-width: 760px) {
   .faq-section {
     padding: 64px 0;

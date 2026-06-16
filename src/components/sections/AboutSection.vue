@@ -1,6 +1,7 @@
 <template>
   <section id="about" class="about-section">
     <AppContainer>
+      <!-- Блок о компании: слева текст, справа короткие факты доверия -->
       <div class="about-section__grid">
         <SectionTitle
           align="left"
@@ -9,6 +10,7 @@
           subtitle="Этот блок позже наполним реальными фактами: опыт, бригады, производство, договор, гарантия и условия работы по Новосибирску."
         />
 
+        <!-- Эти цифры позже можно заменить на реальные показатели компании -->
         <div class="about-section__facts">
           <div class="about-section__fact">
             <strong>15 лет</strong>
@@ -29,11 +31,13 @@
 </template>
 
 <style scoped>
+/* Секция доверия: мягкая подложка отделяет ее от каталога и портфолио */
 .about-section {
   padding: 82px 0;
   background: var(--landing-milk);
 }
 
+/* Desktop-сетка: текст и факты рядом */
 .about-section__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
@@ -41,6 +45,7 @@
   gap: 44px;
 }
 
+/* Карточки с короткими фактами */
 .about-section__facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -72,12 +77,14 @@
   line-height: 1.45;
 }
 
+/* Mobile: блоки идут друг под другом */
 @media (max-width: 900px) {
   .about-section__grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* Маленькие экраны: факты одной колонкой */
 @media (max-width: 620px) {
   .about-section {
     padding: 64px 0;

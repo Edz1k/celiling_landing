@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Данные карточек вынесены отдельно, чтобы менять каталог без правки верстки
 import { ceilingTypes } from '~/data/ceilingTypes'
 </script>
 
@@ -11,6 +12,7 @@ import { ceilingTypes } from '~/data/ceilingTypes'
         subtitle="Базовый каталог для будущих карточек с фото, подробностями и быстрым расчетом стоимости."
       />
 
+      <!-- Карточки видов потолков строятся из src/data/ceilingTypes.ts -->
       <div class="ceiling-types-section__grid">
         <article v-for="type in ceilingTypes" :key="type.id" class="ceiling-types-section__card">
           <div class="ceiling-types-section__image" aria-hidden="true" />
@@ -32,11 +34,13 @@ import { ceilingTypes } from '~/data/ceilingTypes'
 </template>
 
 <style scoped>
+/* Секция каталога: пока простой светлый блок с карточками */
 .ceiling-types-section {
   padding: 82px 0;
   background: #fff;
 }
 
+/* Desktop-сетка: четыре карточки в ряд */
 .ceiling-types-section__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -51,6 +55,7 @@ import { ceilingTypes } from '~/data/ceilingTypes'
   box-shadow: 0 18px 48px rgba(31, 31, 31, 0.06);
 }
 
+/* Временная зона под будущие фотографии потолков */
 .ceiling-types-section__image {
   height: 170px;
   background:
@@ -108,12 +113,14 @@ import { ceilingTypes } from '~/data/ceilingTypes'
   text-decoration: none;
 }
 
+/* Планшет: карточки в две колонки */
 @media (max-width: 1020px) {
   .ceiling-types-section__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* Mobile: карточки становятся одной колонкой */
 @media (max-width: 560px) {
   .ceiling-types-section {
     padding: 64px 0;

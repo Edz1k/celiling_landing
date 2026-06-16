@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Контакты берем из общего navigation.ts, чтобы телефон был один для шапки и формы
 import { contactInfo } from '~/data/navigation'
 </script>
 
@@ -6,6 +7,7 @@ import { contactInfo } from '~/data/navigation'
   <section id="contacts" class="contacts-section">
     <AppContainer>
       <div class="contacts-section__panel">
+        <!-- Финальный CTA: здесь пользователь оставляет заявку на замер -->
         <SectionTitle
           align="left"
           eyebrow="Заявка"
@@ -13,6 +15,7 @@ import { contactInfo } from '~/data/navigation'
           subtitle="Форму позже подключим к Telegram, CRM или другому каналу. Сейчас блок готовит место для финального CTA."
         />
 
+        <!-- Слева контакты, справа временная форма заявки -->
         <div class="contacts-section__content">
           <div class="contacts-section__contact-card">
             <span>Телефон</span>
@@ -20,6 +23,7 @@ import { contactInfo } from '~/data/navigation'
             <p>{{ contactInfo.schedule }}</p>
           </div>
 
+          <!-- Пока форма без отправки: позже подключим Telegram/CRM/API -->
           <form class="contacts-section__form">
             <label>
               <span>Ваше имя</span>
@@ -40,11 +44,13 @@ import { contactInfo } from '~/data/navigation'
 </template>
 
 <style scoped>
+/* Финальный блок заявки */
 .contacts-section {
   padding: 82px 0 96px;
   background: #fff;
 }
 
+/* Темная премиальная панель, чтобы CTA визуально отличался от остальных секций */
 .contacts-section__panel {
   overflow: hidden;
   border-radius: 28px;
@@ -54,6 +60,7 @@ import { contactInfo } from '~/data/navigation'
   padding: clamp(28px, 5vw, 54px);
 }
 
+/* Переопределяем общий SectionTitle внутри темной панели */
 .contacts-section__panel :deep(.section-title__eyebrow),
 .contacts-section__panel :deep(.section-title__subtitle) {
   color: rgba(255, 255, 255, 0.72);
@@ -63,6 +70,7 @@ import { contactInfo } from '~/data/navigation'
   color: #fff;
 }
 
+/* Desktop-сетка: контакты и форма рядом */
 .contacts-section__content {
   display: grid;
   grid-template-columns: minmax(0, 0.7fr) minmax(340px, 1fr);
@@ -107,6 +115,7 @@ import { contactInfo } from '~/data/navigation'
   margin: 0;
 }
 
+/* Сетка полей формы */
 .contacts-section__form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
@@ -133,6 +142,7 @@ import { contactInfo } from '~/data/navigation'
   padding: 0 16px;
 }
 
+/* Планшет: контакты и форма становятся одной колонкой */
 @media (max-width: 980px) {
   .contacts-section__content,
   .contacts-section__form {
@@ -140,6 +150,7 @@ import { contactInfo } from '~/data/navigation'
   }
 }
 
+/* Mobile: уменьшаем вертикальные отступы и радиус панели */
 @media (max-width: 560px) {
   .contacts-section {
     padding: 64px 0 76px;

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Универсальный заголовок секции: eyebrow, title и subtitle собирают единый стиль блоков
 withDefaults(defineProps<{
   align?: 'center' | 'left'
   eyebrow?: string
@@ -11,6 +12,7 @@ withDefaults(defineProps<{
 
 <template>
   <header class="section-title" :class="`section-title--${align}`">
+    <!-- Маленькая верхняя подпись над заголовком -->
     <p v-if="eyebrow" class="section-title__eyebrow">
       {{ eyebrow }}
     </p>
@@ -26,6 +28,7 @@ withDefaults(defineProps<{
 </template>
 
 <style scoped>
+/* Базовая сетка заголовка секции */
 .section-title {
   display: grid;
   gap: 12px;
@@ -33,6 +36,7 @@ withDefaults(defineProps<{
   margin-bottom: 34px;
 }
 
+/* Центрированный вариант для большинства секций */
 .section-title--center {
   justify-items: center;
   margin-right: auto;
@@ -40,6 +44,7 @@ withDefaults(defineProps<{
   text-align: center;
 }
 
+/* Левый вариант для hero-like и CTA-блоков */
 .section-title--left {
   justify-items: start;
   text-align: left;
@@ -64,6 +69,7 @@ withDefaults(defineProps<{
   margin: 0;
 }
 
+/* Золотая линия под заголовком */
 .section-title__heading::after {
   display: block;
   width: 44px;

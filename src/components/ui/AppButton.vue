@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Универсальная кнопка: может быть ссылкой, если передан href, или обычной button
 withDefaults(defineProps<{
   href?: string
   variant?: 'primary' | 'secondary'
@@ -12,6 +13,7 @@ defineEmits<{
 </script>
 
 <template>
+  <!-- Ссылка используется для якорей, телефона и внешних переходов -->
   <a
     v-if="href"
     class="app-button"
@@ -21,6 +23,7 @@ defineEmits<{
     <slot />
   </a>
 
+  <!-- Button используется там, где действие будет обрабатываться JavaScript -->
   <button
     v-else
     class="app-button"
@@ -33,6 +36,7 @@ defineEmits<{
 </template>
 
 <style scoped>
+/* Общая база кнопки для всех вариантов */
 .app-button {
   display: inline-flex;
   align-items: center;
@@ -59,6 +63,7 @@ defineEmits<{
   transform: translateY(-1px);
 }
 
+/* Главная CTA-кнопка */
 .app-button--primary {
   background: linear-gradient(135deg, var(--landing-gold), var(--landing-gold-dark));
   box-shadow: 0 16px 34px rgba(201, 154, 75, 0.26);
@@ -69,6 +74,7 @@ defineEmits<{
   box-shadow: 0 20px 42px rgba(201, 154, 75, 0.34);
 }
 
+/* Вторичная кнопка: спокойная светлая версия */
 .app-button--secondary {
   border-color: rgba(201, 154, 75, 0.28);
   background: rgba(255, 255, 255, 0.76);

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Данные портфолио вынесены отдельно, чтобы потом добавлять реальные объекты без переписывания секции
 import { portfolioItems } from '~/data/portfolio'
 </script>
 
@@ -11,6 +12,7 @@ import { portfolioItems } from '~/data/portfolio'
         subtitle="Здесь будут реальные фотографии объектов. Пока карточки держат структуру будущего блока."
       />
 
+      <!-- Карточки портфолио строятся из src/data/portfolio.ts -->
       <div class="portfolio-section__grid">
         <article v-for="item in portfolioItems" :key="item.id" class="portfolio-section__card">
           <div class="portfolio-section__preview" aria-hidden="true" />
@@ -30,11 +32,13 @@ import { portfolioItems } from '~/data/portfolio'
 </template>
 
 <style scoped>
+/* Секция будущих работ: сейчас держит структуру под реальные фото */
 .portfolio-section {
   padding: 82px 0;
   background: #fff;
 }
 
+/* Desktop-сетка портфолио */
 .portfolio-section__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -48,6 +52,7 @@ import { portfolioItems } from '~/data/portfolio'
   box-shadow: 0 18px 48px rgba(31, 31, 31, 0.07);
 }
 
+/* Временный превью-блок, позже сюда подключим изображения проектов */
 .portfolio-section__preview {
   height: 250px;
   background:
@@ -94,6 +99,7 @@ import { portfolioItems } from '~/data/portfolio'
   padding: 8px 12px;
 }
 
+/* Mobile: портфолио становится вертикальным списком */
 @media (max-width: 900px) {
   .portfolio-section__grid {
     grid-template-columns: 1fr;

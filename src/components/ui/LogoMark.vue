@@ -1,4 +1,5 @@
 <template>
+  <!-- Временный кодовый логотип. Позже этот компонент легко заменить на SVG/PNG -->
   <a class="logo-mark" href="/" aria-label="НОВПОТОЛОК - на главную">
     <span class="logo-mark__icon" aria-hidden="true">
       <svg viewBox="0 0 44 44" role="img">
@@ -34,6 +35,7 @@
 </template>
 
 <style scoped>
+/* Общая строка логотипа: знак плюс текст */
 .logo-mark {
   display: inline-flex;
   align-items: center;
@@ -43,6 +45,7 @@
   text-decoration: none;
 }
 
+/* Знак логотипа нарисован SVG-контуром в золотом цвете */
 .logo-mark__icon {
   display: grid;
   width: 48px;
@@ -57,6 +60,7 @@
   height: 100%;
 }
 
+/* Текстовая часть логотипа */
 .logo-mark__copy {
   display: grid;
   gap: 2px;
@@ -80,6 +84,7 @@
   text-transform: uppercase;
 }
 
+/* Mobile: уменьшаем логотип, чтобы шапка не занимала много места */
 @media (max-width: 520px) {
   .logo-mark {
     gap: 9px;

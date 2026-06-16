@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { contactInfo, navigationItems } from '~/data/navigation'
 
+// Состояния шапки: открыто ли мобильное меню и был ли скролл страницы
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 
@@ -16,6 +17,7 @@ function updateScrollState() {
   isScrolled.value = window.scrollY > 12
 }
 
+// Слушатели нужны только в браузере: при SSG-сборке объекта window нет
 if (!import.meta.env.SSR) {
   useEventListener(window, 'scroll', updateScrollState, { passive: true })
   useEventListener(window, 'resize', () => {
@@ -24,6 +26,7 @@ if (!import.meta.env.SSR) {
   })
 }
 
+// Класс на body нужен, чтобы открытое мобильное меню не создавало горизонтальный скролл
 watch(isMenuOpen, (open) => {
   document.body.classList.toggle('is-mobile-menu-open', open)
 })
@@ -39,6 +42,7 @@ onBeforeUnmount(() => {
     <div class="app-header__inner">
       <LogoMark />
 
+      <!-- Desktop-навигация: ссылки берутся из src/data/navigation.ts -->
       <nav class="app-header__nav" aria-label="Основная навигация">
         <a
           v-for="item in navigationItems"
@@ -50,6 +54,7 @@ onBeforeUnmount(() => {
         </a>
       </nav>
 
+      <!-- Правый блок на desktop: телефон и график работы -->
       <div class="app-header__contacts">
         <a class="app-header__phone" :href="contactInfo.phoneHref">
           {{ contactInfo.phone }}
@@ -64,6 +69,7 @@ onBeforeUnmount(() => {
       <BurgerButton :open="isMenuOpen" @click="toggleMenu" />
     </div>
 
+    <!-- Мобильная панель открывается бургером и закрывается при клике на пункт меню -->
     <Transition name="mobile-menu">
       <div v-if="isMenuOpen" id="mobile-navigation" class="app-header__mobile-panel">
         <nav class="app-header__mobile-nav" aria-label="Мобильная навигация">
@@ -94,6 +100,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+/* Базовое состояние шапки: прозрачная поверх первого экрана */
 .app-header {
   position: sticky;
   top: 0;
@@ -106,6 +113,7 @@ onBeforeUnmount(() => {
     border-color 260ms ease;
 }
 
+/* Состояние после скролла или при открытом меню: стеклянная подложка */
 .app-header--scrolled,
 .app-header--menu-open {
   border-bottom: 1px solid rgba(201, 154, 75, 0.14);
@@ -114,6 +122,7 @@ onBeforeUnmount(() => {
   backdrop-filter: blur(18px);
 }
 
+/* Desktop-сетка: логотип, меню, контакты, CTA */
 .app-header__inner {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -146,6 +155,7 @@ onBeforeUnmount(() => {
   transition: color 220ms ease;
 }
 
+/* Анимация золотой линии под пунктом меню */
 .app-header__nav-link::after {
   position: absolute;
   right: 0;
@@ -228,6 +238,7 @@ onBeforeUnmount(() => {
   transform: translateY(-1px);
 }
 
+/* Выпадающая мобильная панель */
 .app-header__mobile-panel {
   position: absolute;
   top: calc(100% + 10px);
@@ -291,6 +302,7 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
+/* Анимация появления/скрытия мобильного меню */
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
   transition:
@@ -304,6 +316,7 @@ onBeforeUnmount(() => {
   transform: translateY(-10px);
 }
 
+/* Узкий desktop: чуть сжимаем расстояния, чтобы шапка не ломалась */
 @media (max-width: 1140px) {
   .app-header__inner {
     gap: 18px;
@@ -327,6 +340,7 @@ onBeforeUnmount(() => {
   }
 }
 
+/* Mobile: прячем desktop-меню и показываем бургер */
 @media (max-width: 900px) {
   .app-header__inner {
     display: flex;
