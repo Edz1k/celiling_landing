@@ -1,0 +1,18 @@
+export interface PhoneNumber {
+  href: string
+  label: string
+}
+
+// Единый список реальных номеров для шапки и будущих CTA-блоков
+export const phoneNumbers: PhoneNumber[] = [
+  {
+    href: 'tel:+79231555572',
+    label: '+7 923 155 55 72',
+  },
+  {
+    href: 'tel:+79931897170',
+    label: '+7 993 189 71 70',
+  },
+]
+
+export const contactSchedule = 'Ежедневно с 9:00 до 21:00'

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Кнопка получает состояние открытого меню от AppHeader
 defineProps<{
   open: boolean
 }>()
@@ -9,6 +10,7 @@ defineEmits<{
 </script>
 
 <template>
+  <!-- aria-expanded помогает скринридерам понять, открыто меню или закрыто -->
   <button
     class="burger-button"
     :class="{ 'burger-button--open': open }"
@@ -25,6 +27,7 @@ defineEmits<{
 </template>
 
 <style scoped>
+/* Базовая круглая кнопка бургера */
 .burger-button {
   position: relative;
   display: none;
@@ -51,6 +54,7 @@ defineEmits<{
   transform: translateY(-1px);
 }
 
+/* Три линии бургера рисуются обычными span */
 .burger-button span {
   position: absolute;
   width: 18px;
@@ -70,6 +74,7 @@ defineEmits<{
   transform: translateY(6px);
 }
 
+/* Открытое состояние: линии превращаются в крестик */
 .burger-button--open span:nth-child(1) {
   transform: rotate(45deg);
 }
@@ -82,7 +87,8 @@ defineEmits<{
   transform: rotate(-45deg);
 }
 
-@media (max-width: 900px) {
+/* Бургер виден только на мобильной ширине */
+@media (max-width: 768px) {
   .burger-button {
     display: inline-flex;
   }

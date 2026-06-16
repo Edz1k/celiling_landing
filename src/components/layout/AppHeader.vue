@@ -1,29 +1,58 @@
 <script setup lang="ts">
-import { contactInfo, navigationItems } from '~/data/navigation'
+import { contactSchedule, phoneNumbers } from '~/data/contacts'
+import { navigationItems } from '~/data/navigation'
 
+// Состояния шапки: мобильное меню, dropdown звонка и эффект после скролла
 const isMenuOpen = ref(false)
+const isCallDropdownOpen = ref(false)
 const isScrolled = ref(false)
+const callDropdownRef = ref<HTMLElement | null>(null)
 
 function closeMenu() {
   isMenuOpen.value = false
 }
 
+function closeCallDropdown() {
+  isCallDropdownOpen.value = false
+}
+
 function toggleMenu() {
+  closeCallDropdown()
   isMenuOpen.value = !isMenuOpen.value
+}
+
+function toggleCallDropdown() {
+  closeMenu()
+  isCallDropdownOpen.value = !isCallDropdownOpen.value
 }
 
 function updateScrollState() {
   isScrolled.value = window.scrollY > 12
 }
 
+function handleDocumentClick(event: MouseEvent) {
+  const target = event.target
+
+  if (!(target instanceof Node) || !callDropdownRef.value)
+    return
+
+  if (!callDropdownRef.value.contains(target))
+    closeCallDropdown()
+}
+
+// Слушатели нужны только в браузере: при SSG-сборке объекта window нет
 if (!import.meta.env.SSR) {
   useEventListener(window, 'scroll', updateScrollState, { passive: true })
   useEventListener(window, 'resize', () => {
-    if (window.innerWidth > 900)
+    if (window.innerWidth > 768) {
       closeMenu()
+      closeCallDropdown()
+    }
   })
+  useEventListener(document, 'click', handleDocumentClick)
 }
 
+// Класс на body нужен, чтобы открытое мобильное меню не создавало горизонтальный скролл
 watch(isMenuOpen, (open) => {
   document.body.classList.toggle('is-mobile-menu-open', open)
 })
@@ -35,10 +64,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <header class="app-header" :class="{ 'app-header--scrolled': isScrolled, 'app-header--menu-open': isMenuOpen }">
+  <header
+    class="app-header"
+    :class="{
+      'app-header--scrolled': isScrolled,
+      'app-header--menu-open': isMenuOpen,
+      'app-header--call-open': isCallDropdownOpen,
+    }"
+  >
     <div class="app-header__inner">
       <LogoMark />
 
+      <!-- Desktop-навигация: ссылки берутся из src/data/navigation.ts -->
       <nav class="app-header__nav" aria-label="Основная навигация">
         <a
           v-for="item in navigationItems"
@@ -50,20 +87,60 @@ onBeforeUnmount(() => {
         </a>
       </nav>
 
+      <!-- Правый блок на desktop: телефон и график работы -->
       <div class="app-header__contacts">
-        <a class="app-header__phone" :href="contactInfo.phoneHref">
-          {{ contactInfo.phone }}
-        </a>
-        <span class="app-header__schedule">{{ contactInfo.schedule }}</span>
+        <div class="app-header__phones" aria-label="Телефоны">
+          <a
+            v-for="phone in phoneNumbers"
+            :key="phone.href"
+            class="app-header__phone"
+            :href="phone.href"
+          >
+            {{ phone.label }}
+          </a>
+        </div>
+        <span class="app-header__schedule">{{ contactSchedule }}</span>
       </div>
 
-      <a class="app-header__cta" href="#contacts">
-        Перезвоните мне
+      <a class="app-header__cta" :href="phoneNumbers[0].href">
+        Позвоните нам!
       </a>
+
+      <!-- Mobile-кнопка звонка: открывает выбор из двух номеров -->
+      <div ref="callDropdownRef" class="app-header__call">
+        <button
+          class="app-header__call-button"
+          type="button"
+          :aria-expanded="isCallDropdownOpen"
+          aria-controls="mobile-call-dropdown"
+          aria-label="Выбрать номер для звонка"
+          @click.stop="toggleCallDropdown"
+        >
+          Позвонить
+        </button>
+
+        <Transition name="call-dropdown">
+          <div
+            v-if="isCallDropdownOpen"
+            id="mobile-call-dropdown"
+            class="app-header__call-dropdown"
+          >
+            <a
+              v-for="phone in phoneNumbers"
+              :key="phone.href"
+              :href="phone.href"
+              @click="closeCallDropdown"
+            >
+              {{ phone.label }}
+            </a>
+          </div>
+        </Transition>
+      </div>
 
       <BurgerButton :open="isMenuOpen" @click="toggleMenu" />
     </div>
 
+    <!-- Мобильная панель открывается бургером и закрывается при клике на пункт меню -->
     <Transition name="mobile-menu">
       <div v-if="isMenuOpen" id="mobile-navigation" class="app-header__mobile-panel">
         <nav class="app-header__mobile-nav" aria-label="Мобильная навигация">
@@ -79,10 +156,16 @@ onBeforeUnmount(() => {
         </nav>
 
         <div class="app-header__mobile-contact">
-          <a class="app-header__mobile-phone" :href="contactInfo.phoneHref">
-            {{ contactInfo.phone }}
+          <a
+            v-for="phone in phoneNumbers"
+            :key="phone.href"
+            class="app-header__mobile-phone"
+            :href="phone.href"
+            @click="closeMenu"
+          >
+            {{ phone.label }}
           </a>
-          <span>{{ contactInfo.schedule }}</span>
+          <span>{{ contactSchedule }}</span>
         </div>
 
         <a class="app-header__mobile-cta" href="#contacts" @click="closeMenu">
@@ -94,33 +177,39 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+/* Базовое состояние шапки: прозрачная поверх первого экрана */
 .app-header {
   position: sticky;
   top: 0;
   z-index: 50;
   width: 100%;
-  background: rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(201, 154, 75, 0.16);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 30px rgba(31, 31, 31, 0.035);
+  backdrop-filter: blur(16px);
   transition:
     background 260ms ease,
     box-shadow 260ms ease,
     border-color 260ms ease;
 }
 
+/* Состояние после скролла или при открытом меню: стеклянная подложка */
 .app-header--scrolled,
-.app-header--menu-open {
-  border-bottom: 1px solid rgba(201, 154, 75, 0.14);
-  background: rgba(255, 252, 247, 0.82);
-  box-shadow: 0 18px 50px rgba(31, 31, 31, 0.08);
-  backdrop-filter: blur(18px);
+.app-header--menu-open,
+.app-header--call-open {
+  border-bottom-color: rgba(201, 154, 75, 0.16);
+  background: rgba(255, 252, 247, 0.86);
+  box-shadow: 0 18px 46px rgba(31, 31, 31, 0.09);
 }
 
+/* Desktop-сетка: логотип, меню, контакты, CTA */
 .app-header__inner {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 26px;
+  gap: 22px;
   width: min(100% - 48px, 1220px);
-  min-height: 88px;
+  min-height: 84px;
   margin: 0 auto;
 }
 
@@ -139,13 +228,14 @@ onBeforeUnmount(() => {
   min-height: 40px;
   color: rgba(31, 31, 31, 0.78);
   font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 500;
+  line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
   transition: color 220ms ease;
 }
 
+/* Анимация золотой линии под пунктом меню */
 .app-header__nav-link::after {
   position: absolute;
   right: 0;
@@ -173,16 +263,22 @@ onBeforeUnmount(() => {
 
 .app-header__contacts {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   justify-items: end;
   white-space: nowrap;
 }
 
+.app-header__phones {
+  display: grid;
+  gap: 4px;
+  justify-items: end;
+}
+
 .app-header__phone {
   color: var(--landing-text);
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
   text-decoration: none;
   transition: color 220ms ease;
 }
@@ -194,8 +290,8 @@ onBeforeUnmount(() => {
 .app-header__schedule {
   color: var(--landing-muted);
   font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .app-header__cta,
@@ -210,8 +306,8 @@ onBeforeUnmount(() => {
   box-shadow: 0 14px 30px rgba(201, 154, 75, 0.24);
   color: #fff;
   font-size: 14px;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.15;
   padding: 0 24px;
   text-decoration: none;
   white-space: nowrap;
@@ -221,6 +317,71 @@ onBeforeUnmount(() => {
     transform 220ms ease;
 }
 
+.app-header__call {
+  position: relative;
+  display: none;
+}
+
+.app-header__call-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid rgba(201, 154, 75, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 12px 28px rgba(31, 31, 31, 0.07);
+  color: var(--landing-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.15;
+  padding: 0 16px;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.app-header__call-button:hover {
+  border-color: rgba(201, 154, 75, 0.48);
+  box-shadow: 0 16px 34px rgba(31, 31, 31, 0.1);
+  transform: translateY(-1px);
+}
+
+.app-header__call-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  display: grid;
+  gap: 4px;
+  min-width: 206px;
+  border: 1px solid rgba(201, 154, 75, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 252, 247, 0.96);
+  box-shadow: 0 22px 54px rgba(31, 31, 31, 0.14);
+  padding: 8px;
+  backdrop-filter: blur(16px);
+}
+
+.app-header__call-dropdown a {
+  border-radius: 12px;
+  color: var(--landing-text);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px;
+  text-decoration: none;
+  transition:
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.app-header__call-dropdown a:hover {
+  background: rgba(201, 154, 75, 0.1);
+  color: var(--landing-gold-dark);
+}
+
 .app-header__cta:hover,
 .app-header__mobile-cta:hover {
   box-shadow: 0 18px 38px rgba(201, 154, 75, 0.34);
@@ -228,6 +389,7 @@ onBeforeUnmount(() => {
   transform: translateY(-1px);
 }
 
+/* Выпадающая мобильная панель */
 .app-header__mobile-panel {
   position: absolute;
   top: calc(100% + 10px);
@@ -256,7 +418,7 @@ onBeforeUnmount(() => {
   border-radius: 14px;
   color: var(--landing-text);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 12px;
   text-decoration: none;
   transition:
@@ -275,15 +437,15 @@ onBeforeUnmount(() => {
   border-top: 1px solid rgba(31, 31, 31, 0.08);
   color: var(--landing-muted);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 400;
   margin-top: 14px;
   padding: 18px 12px 14px;
 }
 
 .app-header__mobile-phone {
   color: var(--landing-text);
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -291,6 +453,7 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
+/* Анимация появления/скрытия мобильного меню */
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
   transition:
@@ -304,6 +467,20 @@ onBeforeUnmount(() => {
   transform: translateY(-10px);
 }
 
+.call-dropdown-enter-active,
+.call-dropdown-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
+}
+
+.call-dropdown-enter-from,
+.call-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Узкий desktop: чуть сжимаем расстояния, чтобы шапка не ломалась */
 @media (max-width: 1140px) {
   .app-header__inner {
     gap: 18px;
@@ -311,7 +488,7 @@ onBeforeUnmount(() => {
   }
 
   .app-header__nav {
-    gap: 13px;
+    gap: 11px;
   }
 
   .app-header__nav-link {
@@ -319,7 +496,7 @@ onBeforeUnmount(() => {
   }
 
   .app-header__phone {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .app-header__cta {
@@ -327,11 +504,24 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 900px) {
+/* Tablet: убираем CTA, чтобы меню и два номера не наезжали друг на друга */
+@media (max-width: 980px) {
+  .app-header__inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .app-header__cta {
+    display: none;
+  }
+}
+
+/* Mobile: прячем desktop-меню, показываем звонок и бургер */
+@media (max-width: 768px) {
   .app-header__inner {
     display: flex;
     justify-content: space-between;
-    min-height: 72px;
+    gap: 10px;
+    min-height: 68px;
     width: min(100% - 28px, 1220px);
   }
 
@@ -341,8 +531,26 @@ onBeforeUnmount(() => {
     display: none;
   }
 
+  .app-header__call {
+    display: block;
+    margin-left: auto;
+  }
+
   .app-header__mobile-panel {
     display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-header__call-button {
+    width: 42px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .app-header__call-button::before {
+    content: '☎';
+    font-size: 17px;
   }
 }
 </style>
