@@ -28,4 +28,5 @@ useHead({
   <NavigationComponent />
   <RouterView />
   <TheFooterComponent />
+  <Toast />
 </template>
