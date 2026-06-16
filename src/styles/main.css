@@ -1,11 +1,42 @@
 @import './markdown.css';
 
+:root {
+  --landing-text: #1f1f1f;
+  --landing-muted: #6f6a61;
+  --landing-gold: #c99a4b;
+  --landing-gold-dark: #ad7d2e;
+  --landing-cream: #fffaf2;
+  --landing-milk: #f7f1e8;
+}
+
 html,
 body,
 #app {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+html {
+  color: var(--landing-text);
+  font-family:
+    Inter,
+    'DM Sans',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--landing-cream);
+}
+
+body.is-mobile-menu-open {
+  overflow-x: hidden;
 }
 
 html.dark {

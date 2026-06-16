@@ -11,15 +11,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppHeader: typeof import('./components/layout/AppHeader.vue')['default']
+    BurgerButton: typeof import('./components/ui/BurgerButton.vue')['default']
+    LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
     NavigationComponent: typeof import('./components/NavigationComponent.vue')['default']
-    README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheCounter: typeof import('./components/TheCounter.vue')['default']
-    TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheFooterComponent: typeof import('./components/TheFooterComponent.vue')['default']
-    'TheFooterComponent.': typeof import('./components/TheFooterComponent..vue')['default']
-    TheInput: typeof import('./components/TheInput.vue')['default']
     Toast: typeof import('./components/Toast.vue')['default']
   }
 }

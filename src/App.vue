@@ -3,15 +3,15 @@
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
 useHead({
-  title: 'Vitesse',
+  title: 'НОВПОТОЛОК - натяжные потолки в Новосибирске',
   meta: [
     {
       name: 'description',
-      content: 'Opinionated Vite Starter Template',
+      content: 'Натяжные потолки в Новосибирске с установкой под ключ, бесплатным замером и гарантией.',
     },
     {
       name: 'theme-color',
-      content: () => isDark.value ? '#00aba9' : '#ffffff',
+      content: '#fffaf2',
     },
   ],
   link: [
@@ -25,8 +25,7 @@ useHead({
 </script>
 
 <template>
-  <NavigationComponent />
+  <AppHeader />
   <RouterView />
-  <TheFooterComponent />
   <Toast />
 </template>
