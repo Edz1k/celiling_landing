@@ -108,7 +108,7 @@
 .logo-mark__title {
   color: var(--landing-text);
   font-size: 20px;
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
   white-space: nowrap;
@@ -123,7 +123,7 @@
   max-width: 150px;
   color: var(--landing-muted);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.04em;
   line-height: 1.1;
   text-transform: uppercase;

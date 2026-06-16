@@ -161,7 +161,7 @@ onBeforeUnmount(() => {
 .callback-modal__head p {
   color: var(--landing-gold-dark);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 600;
   letter-spacing: 0.08em;
   margin: 0;
   text-transform: uppercase;
@@ -170,16 +170,16 @@ onBeforeUnmount(() => {
 .callback-modal__head h3 {
   color: #1f1f1f;
   font-size: clamp(28px, 4vw, 40px);
-  font-weight: 950;
-  line-height: 1.08;
+  font-weight: 700;
+  line-height: 1.12;
   margin: 0;
 }
 
 .callback-modal__head span {
   color: #666;
   font-size: 15px;
-  font-weight: 700;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .callback-modal__form {
@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
 .callback-modal__form label span {
   color: #666;
   font-size: 13px;
-  font-weight: 850;
+  font-weight: 500;
 }
 
 .callback-modal__form input,
@@ -208,7 +208,7 @@ onBeforeUnmount(() => {
   color: #1f1f1f;
   font: inherit;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
   outline: none;
   transition:
     border-color 220ms ease,
@@ -242,7 +242,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   font: inherit;
   font-size: 15px;
-  font-weight: 950;
+  font-weight: 600;
   margin-top: 4px;
   padding: 0 28px;
   transition:
@@ -258,8 +258,8 @@ onBeforeUnmount(() => {
 .callback-modal__message {
   color: #666;
   font-size: 14px;
-  font-weight: 750;
-  line-height: 1.45;
+  font-weight: 400;
+  line-height: 1.55;
   margin: 0;
 }
 

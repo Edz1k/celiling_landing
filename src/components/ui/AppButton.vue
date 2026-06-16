@@ -47,8 +47,8 @@ defineEmits<{
   cursor: pointer;
   font: inherit;
   font-size: 14px;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.15;
   padding: 0 24px;
   text-decoration: none;
   transition:

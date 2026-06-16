@@ -126,7 +126,7 @@ function closeMaterial() {
   background: rgba(255, 255, 255, 0.72);
   color: var(--landing-gold-dark);
   font-size: 28px;
-  font-weight: 950;
+  font-weight: 600;
 }
 
 .ceiling-types-section__body {
@@ -138,16 +138,16 @@ function closeMaterial() {
 .ceiling-types-section__body h3 {
   color: #1f1f1f;
   font-size: 20px;
-  font-weight: 950;
-  line-height: 1.15;
+  font-weight: 600;
+  line-height: 1.25;
   margin: 0;
 }
 
 .ceiling-types-section__body p {
   color: #666;
   font-size: 14px;
-  font-weight: 650;
-  line-height: 1.58;
+  font-weight: 400;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -162,7 +162,7 @@ function closeMaterial() {
 .ceiling-types-section__bottom strong {
   color: #1f1f1f;
   font-size: 17px;
-  font-weight: 950;
+  font-weight: 600;
 }
 
 .ceiling-types-section__arrow {
@@ -179,7 +179,7 @@ function closeMaterial() {
   cursor: pointer;
   font: inherit;
   font-size: 24px;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1;
   transition:
     background 220ms ease,

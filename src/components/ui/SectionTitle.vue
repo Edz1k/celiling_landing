@@ -53,7 +53,7 @@ withDefaults(defineProps<{
 .section-title__eyebrow {
   color: var(--landing-gold-dark);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1;
   margin: 0;
@@ -63,7 +63,7 @@ withDefaults(defineProps<{
 .section-title__heading {
   color: var(--landing-text);
   font-size: clamp(28px, 3vw, 42px);
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 1.08;
   margin: 0;
@@ -88,8 +88,8 @@ withDefaults(defineProps<{
 .section-title__subtitle {
   color: var(--landing-muted);
   font-size: 16px;
-  font-weight: 650;
-  line-height: 1.65;
+  font-weight: 400;
+  line-height: 1.7;
   margin: 0;
 }
 </style>

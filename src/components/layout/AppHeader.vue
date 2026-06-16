@@ -228,8 +228,8 @@ onBeforeUnmount(() => {
   min-height: 40px;
   color: rgba(31, 31, 31, 0.78);
   font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 500;
+  line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
   transition: color 220ms ease;
@@ -277,8 +277,8 @@ onBeforeUnmount(() => {
 .app-header__phone {
   color: var(--landing-text);
   font-size: 16px;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.15;
   text-decoration: none;
   transition: color 220ms ease;
 }
@@ -290,8 +290,8 @@ onBeforeUnmount(() => {
 .app-header__schedule {
   color: var(--landing-muted);
   font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .app-header__cta,
@@ -306,8 +306,8 @@ onBeforeUnmount(() => {
   box-shadow: 0 14px 30px rgba(201, 154, 75, 0.24);
   color: #fff;
   font-size: 14px;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.15;
   padding: 0 24px;
   text-decoration: none;
   white-space: nowrap;
@@ -335,8 +335,8 @@ onBeforeUnmount(() => {
   cursor: pointer;
   font: inherit;
   font-size: 13px;
-  font-weight: 900;
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.15;
   padding: 0 16px;
   transition:
     border-color 220ms ease,
@@ -369,7 +369,7 @@ onBeforeUnmount(() => {
   border-radius: 12px;
   color: var(--landing-text);
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 500;
   padding: 12px;
   text-decoration: none;
   transition:
@@ -418,7 +418,7 @@ onBeforeUnmount(() => {
   border-radius: 14px;
   color: var(--landing-text);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 12px;
   text-decoration: none;
   transition:
@@ -437,7 +437,7 @@ onBeforeUnmount(() => {
   border-top: 1px solid rgba(31, 31, 31, 0.08);
   color: var(--landing-muted);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 400;
   margin-top: 14px;
   padding: 18px 12px 14px;
 }
@@ -445,7 +445,7 @@ onBeforeUnmount(() => {
 .app-header__mobile-phone {
   color: var(--landing-text);
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 600;
   text-decoration: none;
 }
 

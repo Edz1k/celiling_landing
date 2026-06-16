@@ -140,7 +140,7 @@ function closeCallbackModal() {
   box-shadow: 0 10px 28px rgba(31, 31, 31, 0.05);
   color: var(--landing-text);
   font-size: 13px;
-  font-weight: 950;
+  font-weight: 600;
   letter-spacing: 0.04em;
   margin: 0 0 28px;
   padding: 0 18px;
@@ -151,7 +151,7 @@ function closeCallbackModal() {
   display: grid;
   color: var(--landing-text);
   font-size: clamp(72px, 7.2vw, 118px);
-  font-weight: 950;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 0.9;
   margin: 0;
@@ -161,7 +161,7 @@ function closeCallbackModal() {
 .hero-section__location {
   color: var(--landing-gold-dark);
   font-size: clamp(22px, 2.2vw, 34px);
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 1.12;
   margin: 20px 0 0;
@@ -172,8 +172,8 @@ function closeCallbackModal() {
   max-width: 510px;
   color: #555;
   font-size: 18px;
-  font-weight: 750;
-  line-height: 1.65;
+  font-weight: 400;
+  line-height: 1.7;
   margin: 26px 0 0;
 }
 
@@ -192,8 +192,8 @@ function closeCallbackModal() {
   gap: 10px;
   color: var(--landing-text);
   font-size: 14px;
-  font-weight: 800;
-  line-height: 1.25;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .hero-section__fact-icon {
@@ -206,7 +206,7 @@ function closeCallbackModal() {
   border-radius: 50%;
   color: var(--landing-gold-dark);
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .hero-section__actions {
@@ -237,7 +237,7 @@ function closeCallbackModal() {
   box-shadow: 0 16px 34px rgba(31, 31, 31, 0.12);
   color: #fff;
   font-size: 15px;
-  font-weight: 950;
+  font-weight: 600;
   text-decoration: none;
   transition:
     box-shadow 220ms ease,
@@ -265,7 +265,7 @@ function closeCallbackModal() {
 .hero-section__note {
   color: var(--landing-muted);
   font-size: 13px;
-  font-weight: 750;
+  font-weight: 400;
   margin: 14px 0 0 260px;
 }
 
@@ -287,8 +287,8 @@ function closeCallbackModal() {
   box-shadow: 0 18px 44px rgba(31, 31, 31, 0.12);
   color: var(--landing-muted);
   font-size: 14px;
-  font-weight: 750;
-  line-height: 1.35;
+  font-weight: 400;
+  line-height: 1.45;
   padding: 20px;
   backdrop-filter: blur(14px);
 }
@@ -296,7 +296,7 @@ function closeCallbackModal() {
 .hero-section__discount span {
   color: var(--landing-gold-dark);
   font-size: 34px;
-  font-weight: 950;
+  font-weight: 700;
   line-height: 1;
 }
 

@@ -275,14 +275,14 @@ onBeforeUnmount(() => {
   background: var(--landing-gold);
   color: #fff;
   font-size: 24px;
-  font-weight: 950;
+  font-weight: 600;
 }
 
 .catalog-modal__image-card p {
   color: #555;
   font-size: 13px;
-  font-weight: 750;
-  line-height: 1.4;
+  font-weight: 400;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -299,7 +299,7 @@ onBeforeUnmount(() => {
 .catalog-modal__eyebrow {
   color: var(--landing-gold-dark);
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 600;
   letter-spacing: 0.08em;
   margin: 0;
   text-transform: uppercase;
@@ -308,23 +308,23 @@ onBeforeUnmount(() => {
 .catalog-modal__intro h3 {
   color: #1f1f1f;
   font-size: clamp(30px, 3.5vw, 46px);
-  font-weight: 950;
-  line-height: 1.05;
+  font-weight: 700;
+  line-height: 1.08;
   margin: 0;
 }
 
 .catalog-modal__intro p {
   color: #666;
   font-size: 16px;
-  font-weight: 650;
-  line-height: 1.58;
+  font-weight: 400;
+  line-height: 1.68;
   margin: 0;
 }
 
 .catalog-modal__intro strong {
   color: #1f1f1f;
   font-size: 24px;
-  font-weight: 950;
+  font-weight: 600;
 }
 
 .catalog-modal__lists {
@@ -344,8 +344,8 @@ onBeforeUnmount(() => {
 .catalog-modal__card h4 {
   color: #1f1f1f;
   font-size: 16px;
-  font-weight: 950;
-  line-height: 1.2;
+  font-weight: 600;
+  line-height: 1.3;
   margin: 0 0 12px;
 }
 
@@ -361,8 +361,8 @@ onBeforeUnmount(() => {
   position: relative;
   color: #666;
   font-size: 13px;
-  font-weight: 750;
-  line-height: 1.35;
+  font-weight: 400;
+  line-height: 1.45;
   padding-left: 16px;
 }
 
@@ -409,8 +409,8 @@ onBeforeUnmount(() => {
 .catalog-modal__form label span {
   color: #666;
   font-size: 13px;
-  font-weight: 800;
-  line-height: 1.3;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .catalog-modal__form input,
@@ -422,7 +422,7 @@ onBeforeUnmount(() => {
   color: #1f1f1f;
   font: inherit;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
   outline: none;
   transition:
     border-color 220ms ease,
@@ -467,7 +467,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   font: inherit;
   font-size: 15px;
-  font-weight: 950;
+  font-weight: 600;
   padding: 0 28px;
   transition:
     box-shadow 220ms ease,
@@ -482,8 +482,8 @@ onBeforeUnmount(() => {
 .catalog-modal__message {
   color: #666;
   font-size: 14px;
-  font-weight: 750;
-  line-height: 1.45;
+  font-weight: 400;
+  line-height: 1.55;
   margin: 0;
 }
 
