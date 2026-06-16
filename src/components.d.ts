@@ -16,6 +16,7 @@ declare module 'vue' {
     AppContainer: typeof import('./components/ui/AppContainer.vue')['default']
     AppHeader: typeof import('./components/layout/AppHeader.vue')['default']
     BurgerButton: typeof import('./components/ui/BurgerButton.vue')['default']
+    CeilingTypeModal: typeof import('./components/sections/CeilingTypeModal.vue')['default']
     CeilingTypesSection: typeof import('./components/sections/CeilingTypesSection.vue')['default']
     ContactsSection: typeof import('./components/sections/ContactsSection.vue')['default']
     FaqSection: typeof import('./components/sections/FaqSection.vue')['default']
