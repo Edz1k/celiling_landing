@@ -25,5 +25,7 @@ useHead({
 </script>
 
 <template>
+  <NavigationComponent />
   <RouterView />
+  <TheFooterComponent />
 </template>
