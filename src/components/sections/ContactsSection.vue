@@ -27,7 +27,7 @@ import { contactInfo } from '~/data/navigation'
           <form class="contacts-section__form">
             <label>
               <span>Ваше имя</span>
-              <input type="text" placeholder="Алексей" autocomplete="name">
+              <input type="text" placeholder="Алёша" autocomplete="name">
             </label>
             <label>
               <span>Телефон</span>
