@@ -14,7 +14,7 @@
           </h1>
 
           <p class="hero-section__location">
-            В Новосибирске и области
+            В Новосибирске
           </p>
 
           <p class="hero-section__text">

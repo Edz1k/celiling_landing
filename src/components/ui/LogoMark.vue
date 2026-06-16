@@ -51,6 +51,11 @@
   min-width: 0;
   color: var(--landing-text);
   text-decoration: none;
+  transition: transform 240ms ease;
+}
+
+.logo-mark:hover {
+  transform: translateY(-1px);
 }
 
 /* Знак логотипа нарисован SVG-контуром в золотом цвете */
@@ -61,6 +66,18 @@
   flex: 0 0 auto;
   place-items: center;
   color: var(--landing-gold);
+  filter: drop-shadow(0 10px 18px rgba(201, 154, 75, 0));
+  transform-origin: center;
+  transition:
+    color 240ms ease,
+    filter 240ms ease,
+    transform 280ms ease;
+}
+
+.logo-mark:hover .logo-mark__icon {
+  color: var(--landing-gold-dark);
+  filter: drop-shadow(0 12px 20px rgba(201, 154, 75, 0.22));
+  transform: rotate(-4deg) scale(1.04);
 }
 
 .logo-mark__icon svg {
@@ -68,11 +85,24 @@
   height: 100%;
 }
 
+.logo-mark__icon path {
+  transition: stroke-width 240ms ease;
+}
+
+.logo-mark:hover .logo-mark__icon path {
+  stroke-width: 3.1;
+}
+
 /* Текстовая часть логотипа */
 .logo-mark__copy {
   display: grid;
   gap: 4px;
   min-width: 0;
+  transition: transform 240ms ease;
+}
+
+.logo-mark:hover .logo-mark__copy {
+  transform: translateX(2px);
 }
 
 .logo-mark__title {
@@ -82,6 +112,11 @@
   letter-spacing: 0;
   line-height: 1;
   white-space: nowrap;
+  transition: color 220ms ease;
+}
+
+.logo-mark:hover .logo-mark__title {
+  color: #111;
 }
 
 .logo-mark__subtitle {
@@ -92,6 +127,11 @@
   letter-spacing: 0.04em;
   line-height: 1.1;
   text-transform: uppercase;
+  transition: color 220ms ease;
+}
+
+.logo-mark:hover .logo-mark__subtitle {
+  color: var(--landing-gold-dark);
 }
 
 /* Mobile: уменьшаем логотип, чтобы шапка не занимала много места */
