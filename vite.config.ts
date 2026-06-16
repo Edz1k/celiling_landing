@@ -1,5 +1,4 @@
 import path from 'node:path'
-import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Shiki from '@shikijs/markdown-it'
 import { unheadVueComposablesImports } from '@unhead/vue'
 import Vue from '@vitejs/plugin-vue'
@@ -48,7 +47,6 @@ export default defineConfig({
       include: [/\.[jt]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       imports: [
         'vue',
-        'vue-i18n',
         '@vueuse/core',
         unheadVueComposablesImports,
         VueRouterAutoImports,
@@ -130,14 +128,6 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
-    VueI18n({
-      runtimeOnly: true,
-      compositionOnly: true,
-      fullInstall: true,
-      include: [path.resolve(__dirname, 'locales/**')],
-    }),
-
     // https://github.com/webfansplz/vite-plugin-vue-devtools
     VueDevTools(),
   ],
@@ -162,6 +152,6 @@ export default defineConfig({
 
   ssr: {
     // TODO: workaround until they support native ESM
-    noExternal: ['workbox-window', /vue-i18n/],
+    noExternal: ['workbox-window'],
   },
 })
