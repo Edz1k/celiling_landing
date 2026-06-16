@@ -12,6 +12,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AboutSection: typeof import('./components/sections/AboutSection.vue')['default']
+    AdditionalOptionsSection: typeof import('./components/sections/AdditionalOptionsSection.vue')['default']
     AppButton: typeof import('./components/ui/AppButton.vue')['default']
     AppContainer: typeof import('./components/ui/AppContainer.vue')['default']
     AppHeader: typeof import('./components/layout/AppHeader.vue')['default']

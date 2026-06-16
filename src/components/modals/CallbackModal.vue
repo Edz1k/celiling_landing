@@ -1,4 +1,18 @@
 <script setup lang="ts">
+const props = withDefaults(defineProps<{
+  selectedOption?: string
+  source?: string
+  submitText?: string
+  subtitle?: string
+  title?: string
+}>(), {
+  selectedOption: '',
+  source: 'hero_callback',
+  submitText: 'Жду звонка',
+  subtitle: 'Уточним детали, ответим на вопросы и подскажем примерную стоимость',
+  title: 'Оставьте заявку — мы вам позвоним',
+})
+
 const emit = defineEmits<{
   close: []
 }>()
@@ -17,13 +31,14 @@ function closeModal() {
 
 function submitCallback() {
   const requestDraft = {
-    source: 'hero_callback',
+    source: props.source,
+    selectedOption: props.selectedOption,
     name: callbackForm.name,
     phone: callbackForm.phone,
     comment: callbackForm.comment,
   }
 
-  // Временный вывод заявки до подключения реальной отправки.
+  // Временный вывод заявки до подключения Telegram/CRM.
   // eslint-disable-next-line no-console
   console.log(requestDraft)
   formMessage.value = 'Заявка подготовлена. Отправку подключим позже.'
@@ -52,7 +67,7 @@ onBeforeUnmount(() => {
         class="callback-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Оставьте заявку — мы вам позвоним"
+        :aria-label="title"
         @click.self="closeModal"
       >
         <div class="callback-modal__window">
@@ -61,30 +76,30 @@ onBeforeUnmount(() => {
           </button>
 
           <div class="callback-modal__head">
-            <p>Обратный звонок</p>
-            <h3>Оставьте заявку — мы вам позвоним</h3>
-            <span>Уточним детали, ответим на вопросы и подскажем примерную стоимость</span>
+            <p>Обратная связь</p>
+            <h3>{{ title }}</h3>
+            <span>{{ subtitle }}</span>
           </div>
 
           <form class="callback-modal__form" @submit.prevent="submitCallback">
             <!-- Контакты клиента для будущего подключения отправки заявки -->
             <label>
-              <span>Имя</span>
+              <span>Ваше имя</span>
               <input v-model="callbackForm.name" type="text" autocomplete="name" placeholder="Ваше имя">
             </label>
 
             <label>
-              <span>Телефон</span>
+              <span>Номер телефона</span>
               <input v-model="callbackForm.phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__">
             </label>
 
             <label>
-              <span>Комментарий / что нужно сделать</span>
+              <span>Комментарий</span>
               <textarea v-model="callbackForm.comment" rows="4" placeholder="Например: потолок в гостиной, 18 м²" />
             </label>
 
             <button class="callback-modal__submit" type="submit">
-              Жду звонка
+              {{ submitText }}
             </button>
 
             <p v-if="formMessage" class="callback-modal__message">
