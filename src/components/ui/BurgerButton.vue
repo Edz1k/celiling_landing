@@ -88,7 +88,7 @@ defineEmits<{
 }
 
 /* Бургер виден только на мобильной ширине */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .burger-button {
     display: inline-flex;
   }

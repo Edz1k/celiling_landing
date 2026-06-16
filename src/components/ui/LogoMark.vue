@@ -1,35 +1,43 @@
 <template>
   <!-- Временный кодовый логотип. Позже этот компонент легко заменить на SVG/PNG -->
-  <a class="logo-mark" href="/" aria-label="НОВПОТОЛОК - на главную">
+  <a class="logo-mark" href="/" aria-label="СИБ ГРУП - на главную">
     <span class="logo-mark__icon" aria-hidden="true">
-      <svg viewBox="0 0 44 44" role="img">
+      <svg viewBox="0 0 48 48" role="img">
         <path
-          d="M22 4.6 37.1 13.3v17.4L22 39.4 6.9 30.7V13.3L22 4.6Z"
+          d="M24 4.8 40.6 14.4v19.2L24 43.2 7.4 33.6V14.4L24 4.8Z"
           fill="none"
           stroke="currentColor"
           stroke-linejoin="round"
           stroke-width="2.8"
         />
         <path
-          d="M27.9 17.5a7.7 7.7 0 1 0 .1 9.1"
+          d="M18.2 19.2c1.7-3.2 4.7-4.9 8.2-4.2 3 .6 5.2 2.8 5.8 5.6"
           fill="none"
           stroke="currentColor"
           stroke-linecap="round"
           stroke-width="2.8"
         />
         <path
-          d="M26.8 22h8"
+          d="M29.8 28.8c-1.7 3.2-4.7 4.9-8.2 4.2-3-.6-5.2-2.8-5.8-5.6"
           fill="none"
           stroke="currentColor"
           stroke-linecap="round"
+          stroke-width="2.8"
+        />
+        <path
+          d="M32.4 14.8v7.8h-7.8M15.6 33.2v-7.8h7.8"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           stroke-width="2.8"
         />
       </svg>
     </span>
 
     <span class="logo-mark__copy">
-      <span class="logo-mark__title">НОВПОТОЛОК</span>
-      <span class="logo-mark__subtitle">натяжные потолки в Новосибирске</span>
+      <span class="logo-mark__title">СИБ ГРУП</span>
+      <span class="logo-mark__subtitle">натяжные потолки</span>
     </span>
   </a>
 </template>
@@ -63,24 +71,26 @@
 /* Текстовая часть логотипа */
 .logo-mark__copy {
   display: grid;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
 }
 
 .logo-mark__title {
   color: var(--landing-text);
-  font-size: 18px;
-  font-weight: 900;
+  font-size: 20px;
+  font-weight: 950;
   letter-spacing: 0;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .logo-mark__subtitle {
   max-width: 150px;
   color: var(--landing-muted);
   font-size: 11px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
@@ -96,11 +106,11 @@
   }
 
   .logo-mark__title {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .logo-mark__subtitle {
-    max-width: 124px;
+    max-width: 118px;
     font-size: 9px;
   }
 }

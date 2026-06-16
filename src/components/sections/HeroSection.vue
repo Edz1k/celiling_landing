@@ -9,40 +9,62 @@
           </p>
 
           <h1 class="hero-section__title">
-            Натяжные потолки в Новосибирске с установкой за 1 день
+            <span>Натяжные</span>
+            <span>потолки</span>
           </h1>
 
-          <p class="hero-section__text">
-            Аккуратный монтаж под ключ, понятная смета после замера и гарантия на материалы и работы.
+          <p class="hero-section__location">
+            В Новосибирске и области
           </p>
+
+          <p class="hero-section__text">
+            Качественные натяжные потолки с установкой под ключ за 1 день без пыли и грязи
+          </p>
+
+          <ul class="hero-section__facts" aria-label="Ключевые преимущества">
+            <li>
+              <span class="hero-section__fact-icon">✓</span>
+              <span>Гарантия<br>до 15 лет</span>
+            </li>
+            <li>
+              <span class="hero-section__fact-icon">◷</span>
+              <span>Монтаж<br>от 2 часов</span>
+            </li>
+            <li>
+              <span class="hero-section__fact-icon">♧</span>
+              <span>Экологичные<br>материалы</span>
+            </li>
+          </ul>
 
           <!-- Основные действия пользователя -->
           <div class="hero-section__actions">
             <AppButton href="#contacts">
               Рассчитать стоимость
             </AppButton>
-            <AppButton href="tel:+73831234567" variant="secondary">
-              Позвонить
-            </AppButton>
+
+            <div class="hero-section__messengers" aria-label="Мессенджеры">
+              <a class="hero-section__messenger hero-section__messenger--whatsapp" href="https://wa.me/79231555572" aria-label="Написать в WhatsApp">
+                W
+              </a>
+              <a class="hero-section__messenger hero-section__messenger--telegram" href="#contacts" aria-label="Написать в Telegram">
+                T
+              </a>
+              <a class="hero-section__messenger hero-section__messenger--max" href="#contacts" aria-label="Написать в MAX">
+                MAX
+              </a>
+            </div>
           </div>
 
-          <ul class="hero-section__facts" aria-label="Ключевые преимущества">
-            <li>от 390 ₽/м²</li>
-            <li>гарантия до 15 лет</li>
-            <li>монтаж без грязи</li>
-          </ul>
+          <p class="hero-section__note">
+            Напишите нам любым удобным способом
+          </p>
         </div>
 
-        <!-- Правая колонка: временная декоративная сцена, позже можно заменить на фото/галерею -->
+        <!-- Правая колонка: сам интерьерный фон остается главным визуалом, здесь только легкие акценты -->
         <div class="hero-section__visual" aria-hidden="true">
-          <div class="hero-section__room">
-            <div class="hero-section__light-line" />
-            <div class="hero-section__window" />
-            <div class="hero-section__sofa" />
-            <div class="hero-section__card">
-              <span>10%</span>
-              скидка на потолок до конца месяца
-            </div>
+          <div class="hero-section__discount">
+            <span>10%</span>
+            скидка на потолок до конца месяца
           </div>
         </div>
       </div>
@@ -51,18 +73,39 @@
 </template>
 
 <style scoped>
-/* Главный экран: здесь подключен фоновый WebP из src/assets/images/hero */
+/* Главный экран: интерьерный WebP + светлый overlay для читаемости текста */
 .hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: max(720px, calc(100vh - 84px));
+  overflow: hidden;
   padding: 72px 0 86px;
   background:
-    linear-gradient(90deg, rgba(255, 250, 242, 0.96), rgba(255, 250, 242, 0.42)),
-    url('../../assets/images/hero/background.webp') center / cover no-repeat;
+    linear-gradient(
+      90deg,
+      rgba(255, 250, 242, 0.98) 0%,
+      rgba(255, 250, 242, 0.9) 32%,
+      rgba(255, 250, 242, 0.5) 58%,
+      rgba(255, 250, 242, 0.08) 100%
+    ),
+    url('../../assets/images/hero/background.webp') center right / cover no-repeat;
 }
 
-/* Две колонки на desktop: контент слева, визуал справа */
+.hero-section::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 78% 18%, rgba(201, 154, 75, 0.18), transparent 34%);
+  content: '';
+}
+
+/* Две колонки на desktop: сильный текст слева, воздух и акценты справа */
 .hero-section__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
   align-items: center;
   gap: 48px;
 }
@@ -70,168 +113,268 @@
 .hero-section__content {
   display: grid;
   justify-items: start;
+  max-width: 720px;
 }
 
 .hero-section__badge {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
+  min-height: 38px;
   border: 1px solid rgba(201, 154, 75, 0.24);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 10px 28px rgba(31, 31, 31, 0.05);
   color: var(--landing-text);
-  font-size: 12px;
-  font-weight: 900;
+  font-size: 13px;
+  font-weight: 950;
   letter-spacing: 0.04em;
-  margin: 0 0 22px;
-  padding: 0 14px;
+  margin: 0 0 28px;
+  padding: 0 18px;
   text-transform: uppercase;
 }
 
 .hero-section__title {
-  max-width: 720px;
+  display: grid;
   color: var(--landing-text);
-  font-size: clamp(42px, 6vw, 76px);
+  font-size: clamp(72px, 7.2vw, 118px);
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 0.98;
+  line-height: 0.9;
   margin: 0;
   text-transform: uppercase;
 }
 
+.hero-section__location {
+  color: var(--landing-gold-dark);
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 20px 0 0;
+  text-transform: uppercase;
+}
+
 .hero-section__text {
-  max-width: 520px;
-  color: var(--landing-muted);
+  max-width: 510px;
+  color: #555;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 750;
   line-height: 1.65;
-  margin: 24px 0 0;
+  margin: 26px 0 0;
+}
+
+.hero-section__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  gap: 26px;
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+}
+
+.hero-section__facts li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--landing-text);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.hero-section__fact-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(201, 154, 75, 0.42);
+  border-radius: 50%;
+  color: var(--landing-gold-dark);
+  font-size: 18px;
+  font-weight: 900;
 }
 
 .hero-section__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 34px;
+  align-items: center;
+  gap: 18px;
+  margin-top: 42px;
 }
 
-.hero-section__facts {
+.hero-section__actions :deep(.app-button) {
+  min-height: 62px;
+  padding: 0 34px;
+}
+
+.hero-section__messengers {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
-  list-style: none;
-  margin: 30px 0 0;
-  padding: 0;
 }
 
-.hero-section__facts li {
-  border-left: 2px solid var(--landing-gold);
-  color: var(--landing-text);
-  font-size: 14px;
-  font-weight: 850;
-  line-height: 1.2;
-  padding-left: 12px;
-}
-
-.hero-section__visual {
-  min-width: 0;
-}
-
-/* Временная карточка-визуал. Когда будет реальное фото, этот блок можно упростить */
-.hero-section__room {
-  position: relative;
-  min-height: 460px;
-  overflow: hidden;
-  border: 1px solid rgba(201, 154, 75, 0.18);
-  border-radius: 28px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.66), transparent 42%),
-    linear-gradient(145deg, #d9d0c2, #f7f2eb 54%, #c8b7a0);
-  box-shadow: 0 30px 80px rgba(31, 31, 31, 0.12);
-}
-
-.hero-section__light-line {
-  position: absolute;
-  top: 72px;
-  right: 0;
-  left: 12%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #f5d28f, transparent);
-  box-shadow: 0 0 28px rgba(245, 210, 143, 0.9);
-}
-
-.hero-section__window {
-  position: absolute;
-  top: 118px;
-  left: 34%;
-  width: 220px;
-  height: 190px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.56);
-  box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.24);
-}
-
-.hero-section__sofa {
-  position: absolute;
-  right: 12%;
-  bottom: 70px;
-  width: 390px;
-  max-width: 72%;
-  height: 118px;
-  border-radius: 28px 28px 18px 18px;
-  background: #d7c8b6;
-  box-shadow: 0 22px 42px rgba(31, 31, 31, 0.12);
-}
-
-.hero-section__card {
-  position: absolute;
-  right: 28px;
-  bottom: 28px;
+.hero-section__messenger {
   display: grid;
-  gap: 4px;
-  width: 188px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 38px rgba(31, 31, 31, 0.12);
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 50%;
+  box-shadow: 0 16px 34px rgba(31, 31, 31, 0.12);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 950;
+  text-decoration: none;
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.hero-section__messenger:hover {
+  box-shadow: 0 20px 42px rgba(31, 31, 31, 0.16);
+  transform: translateY(-2px);
+}
+
+.hero-section__messenger--whatsapp {
+  background: #25d366;
+}
+
+.hero-section__messenger--telegram {
+  background: #2aabee;
+}
+
+.hero-section__messenger--max {
+  background: #262626;
+  font-size: 13px;
+}
+
+.hero-section__note {
   color: var(--landing-muted);
   font-size: 13px;
   font-weight: 750;
-  line-height: 1.35;
-  padding: 18px;
+  margin: 14px 0 0 260px;
 }
 
-.hero-section__card span {
+.hero-section__visual {
+  position: relative;
+  min-height: 520px;
+}
+
+.hero-section__discount {
+  position: absolute;
+  right: 2%;
+  bottom: 4%;
+  display: grid;
+  gap: 4px;
+  width: 210px;
+  border: 1px solid rgba(201, 154, 75, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 44px rgba(31, 31, 31, 0.12);
+  color: var(--landing-muted);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+  padding: 20px;
+  backdrop-filter: blur(14px);
+}
+
+.hero-section__discount span {
   color: var(--landing-gold-dark);
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 950;
   line-height: 1;
 }
 
-/* Планшет и мобильные: перестраиваем hero в одну колонку */
-@media (max-width: 900px) {
+/* Планшет: уменьшаем масштаб hero, но сохраняем двухколоночную композицию */
+@media (max-width: 1020px) {
   .hero-section {
-    padding: 48px 0 64px;
+    min-height: 680px;
+  }
+
+  .hero-section__grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(220px, 0.7fr);
+  }
+
+  .hero-section__visual {
+    min-height: 430px;
+  }
+}
+
+/* Mobile: текст становится компактнее, фон затемняется светлым overlay */
+@media (max-width: 760px) {
+  .hero-section {
+    align-items: flex-start;
+    min-height: 720px;
+    padding: 46px 0 64px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 250, 242, 0.98) 0%,
+        rgba(255, 250, 242, 0.9) 48%,
+        rgba(255, 250, 242, 0.72) 100%
+      ),
+      url('../../assets/images/hero/background.webp') center right 28% / cover no-repeat;
   }
 
   .hero-section__grid {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
-  .hero-section__room {
-    min-height: 340px;
+  .hero-section__title {
+    font-size: clamp(42px, 14vw, 54px);
+    line-height: 0.96;
   }
-}
 
-/* Маленькие экраны: кнопки на всю ширину, визуал ниже и компактнее */
-@media (max-width: 520px) {
+  .hero-section__location {
+    font-size: 20px;
+  }
+
+  .hero-section__text {
+    font-size: 16px;
+  }
+
+  .hero-section__facts {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .hero-section__actions {
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 32px;
+  }
+
   .hero-section__actions,
   .hero-section__actions :deep(.app-button) {
     width: 100%;
   }
 
-  .hero-section__room {
-    min-height: 280px;
-    border-radius: 22px;
+  .hero-section__messengers {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-section__messenger {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hero-section__note {
+    margin-left: 0;
+  }
+
+  .hero-section__visual {
+    min-height: 82px;
+  }
+
+  .hero-section__discount {
+    right: auto;
+    bottom: 0;
+    left: 0;
+    width: min(100%, 260px);
   }
 }
 </style>
