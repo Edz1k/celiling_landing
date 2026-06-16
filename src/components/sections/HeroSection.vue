@@ -1,3 +1,15 @@
+<script setup lang="ts">
+const isCallbackModalOpen = ref(false)
+
+function openCallbackModal() {
+  isCallbackModalOpen.value = true
+}
+
+function closeCallbackModal() {
+  isCallbackModalOpen.value = false
+}
+</script>
+
 <template>
   <section id="hero" class="hero-section">
     <AppContainer>
@@ -38,8 +50,8 @@
 
           <!-- Основные действия пользователя -->
           <div class="hero-section__actions">
-            <AppButton href="#contacts">
-              Рассчитать стоимость
+            <AppButton @click="openCallbackModal">
+              Мы вам позвоним!
             </AppButton>
 
             <div class="hero-section__messengers" aria-label="Мессенджеры">
@@ -69,6 +81,8 @@
         </div>
       </div>
     </AppContainer>
+
+    <CallbackModal v-if="isCallbackModalOpen" @close="closeCallbackModal" />
   </section>
 </template>
 
