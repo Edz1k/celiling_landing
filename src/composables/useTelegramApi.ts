@@ -1,6 +1,6 @@
 export function useTelegramApi() {
   const sendBotMessage = async (message: string) => {
-    const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
+    const token = import.meta.env.VITE_TELEGRAM_API_KEY
     const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`
