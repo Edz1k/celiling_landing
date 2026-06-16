@@ -27,13 +27,33 @@ const stats = [
   },
 ]
 
-// Процесс работы: показывает клиенту понятный путь от заявки до готового результата.
+// Процесс работы: каждая карточка объясняет клиенту, что происходит на конкретном этапе.
 const workSteps = [
-  'Заявка',
-  'Замер',
-  'Смета',
-  'Монтаж',
-  'Готовый потолок',
+  {
+    description: 'Вы оставляете номер телефона, мы связываемся с вами и уточняем задачу.',
+    icon: '✦',
+    title: 'Заявка',
+  },
+  {
+    description: 'Мастер приезжает в удобное время, замеряет помещение и помогает выбрать материал.',
+    icon: '⌁',
+    title: 'Замер',
+  },
+  {
+    description: 'Сразу считаем стоимость работ и объясняем, из чего складывается цена.',
+    icon: '₽',
+    title: 'Смета',
+  },
+  {
+    description: 'Устанавливаем потолок аккуратно, без лишней грязи и с соблюдением сроков.',
+    icon: '✓',
+    title: 'Монтаж',
+  },
+  {
+    description: 'Проверяем результат, убираем после монтажа и передаем гарантию.',
+    icon: '★',
+    title: 'Готовый потолок',
+  },
 ]
 </script>
 
@@ -71,7 +91,7 @@ const workSteps = [
           </div>
         </div>
 
-        <!-- Нижний блок: короткая цепочка процесса, чтобы снять тревогу перед заказом. -->
+        <!-- Нижний блок: понятная цепочка работы от заявки до готового потолка. -->
         <div class="about-section__process">
           <div class="about-section__process-head">
             <p>Как проходит работа</p>
@@ -79,9 +99,13 @@ const workSteps = [
           </div>
 
           <ol class="about-section__steps">
-            <li v-for="(step, index) in workSteps" :key="step" class="about-section__step">
-              <span class="about-section__step-number">{{ index + 1 }}</span>
-              <strong>{{ step }}</strong>
+            <li v-for="(step, index) in workSteps" :key="step.title" class="about-section__step">
+              <div class="about-section__step-top">
+                <span class="about-section__step-number">{{ index + 1 }}</span>
+                <span class="about-section__step-icon" aria-hidden="true">{{ step.icon }}</span>
+              </div>
+              <strong>{{ step.title }}</strong>
+              <p>{{ step.description }}</p>
             </li>
           </ol>
         </div>
@@ -208,10 +232,10 @@ const workSteps = [
   line-height: 1.5;
 }
 
-/* Процесс работы: отдельная спокойная карточка с понятной последовательностью действий. */
+/* Процесс работы: карточки объясняют этапы и перестраиваются без горизонтального скролла. */
 .about-section__process {
   display: grid;
-  gap: 24px;
+  gap: 22px;
   border: 1px solid rgba(201, 154, 75, 0.16);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.62);
@@ -223,7 +247,7 @@ const workSteps = [
   display: flex;
   align-items: end;
   justify-content: space-between;
-  gap: 18px;
+  gap: 16px;
 }
 
 .about-section__process-head p {
@@ -235,65 +259,102 @@ const workSteps = [
 }
 
 .about-section__process-head span {
-  max-width: 380px;
+  max-width: 360px;
   color: var(--landing-muted);
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
   text-align: right;
 }
 
 .about-section__steps {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: step;
 }
 
 .about-section__step {
   position: relative;
   display: grid;
   gap: 12px;
-  min-height: 118px;
-  align-content: center;
+  min-height: 214px;
+  align-content: start;
   border: 1px solid rgba(201, 154, 75, 0.14);
   border-radius: 20px;
-  background: rgba(247, 242, 235, 0.72);
+  background: rgba(247, 242, 235, 0.74);
+  box-shadow: 0 14px 34px rgba(31, 31, 31, 0.045);
   padding: 18px;
 }
 
 .about-section__step:not(:last-child)::after {
-  content: '';
+  content: '→';
   position: absolute;
-  top: 50%;
-  right: -11px;
-  z-index: 1;
-  width: 18px;
-  height: 1px;
-  background: rgba(201, 154, 75, 0.38);
+  top: 28px;
+  right: -14px;
+  z-index: 2;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid rgba(201, 154, 75, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--landing-gold-dark);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(31, 31, 31, 0.06);
+}
+
+.about-section__step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.about-section__step-number,
+.about-section__step-icon {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  line-height: 1;
 }
 
 .about-section__step-number {
-  display: grid;
   width: 34px;
   height: 34px;
-  place-items: center;
-  border-radius: 50%;
   background: var(--landing-gold);
   color: #fff;
   font-size: 13px;
   font-weight: 600;
-  line-height: 1;
+}
+
+.about-section__step-icon {
+  width: 30px;
+  height: 30px;
+  background: rgba(201, 154, 75, 0.12);
+  color: var(--landing-gold-dark);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .about-section__step strong {
   color: var(--landing-text);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.25;
+}
+
+.about-section__step p {
+  color: var(--landing-muted);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* Tablet: секция перестраивается в одну колонку, чтобы не сжимать текст и карточки. */
@@ -307,7 +368,7 @@ const workSteps = [
   }
 
   .about-section__steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .about-section__step:not(:last-child)::after {
@@ -347,7 +408,7 @@ const workSteps = [
 
   .about-section__process-head {
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .about-section__process-head span {
@@ -357,8 +418,6 @@ const workSteps = [
 
   .about-section__step {
     min-height: auto;
-    grid-template-columns: auto 1fr;
-    align-items: center;
   }
 }
 </style>
