@@ -8,9 +8,15 @@ export default antfu(
     pnpm: true,
   },
   {
-    files: ['README.md', 'README.zh-CN.md'],
+    files: ['README.md'],
     rules: {
       'markdown/heading-increment': 'off',
+    },
+  },
+  {
+    files: ['pnpm-workspace.yaml'],
+    rules: {
+      'pnpm/yaml-enforce-settings': 'off',
     },
   },
 )
