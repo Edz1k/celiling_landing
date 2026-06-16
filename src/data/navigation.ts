@@ -5,28 +5,24 @@ export interface NavigationItem {
 
 export const navigationItems: NavigationItem[] = [
   {
-    href: '#advantages',
-    label: 'Преимущества',
+    href: '#hero',
+    label: 'Главная',
   },
   {
     href: '#types',
     label: 'Виды потолков',
   },
   {
-    href: '#prices',
-    label: 'Цены',
+    href: '#about',
+    label: 'О компании',
   },
   {
     href: '#portfolio',
     label: 'Портфолио',
   },
   {
-    href: '#reviews',
-    label: 'Отзывы',
-  },
-  {
-    href: '#steps',
-    label: 'Этапы',
+    href: '#faq',
+    label: 'FAQ',
   },
   {
     href: '#contacts',

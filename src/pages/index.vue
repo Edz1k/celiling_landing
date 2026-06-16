@@ -4,20 +4,17 @@ defineOptions({
 })
 
 useHead({
-  title: 'Vitesse',
+  title: 'НОВПОТОЛОК - натяжные потолки в Новосибирске',
 })
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl text-center">
-    <h1 class="text-4xl font-bold">
-      Vitesse
-    </h1>
-    <p class="mt-2 text-lg">
-      A <strong>Vite</strong> & <strong>Vue 3</strong> starter template with
-      batteries-included features for rapid development.
-    </p>
-  </div>
+  <HeroSection />
+  <CeilingTypesSection />
+  <AboutSection />
+  <PortfolioSection />
+  <FaqSection />
+  <ContactsSection />
 </template>
 
 <route lang="yaml">

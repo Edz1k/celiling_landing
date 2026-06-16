@@ -11,12 +11,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutSection: typeof import('./components/sections/AboutSection.vue')['default']
+    AppButton: typeof import('./components/ui/AppButton.vue')['default']
+    AppContainer: typeof import('./components/ui/AppContainer.vue')['default']
     AppHeader: typeof import('./components/layout/AppHeader.vue')['default']
     BurgerButton: typeof import('./components/ui/BurgerButton.vue')['default']
+    CeilingTypesSection: typeof import('./components/sections/CeilingTypesSection.vue')['default']
+    ContactsSection: typeof import('./components/sections/ContactsSection.vue')['default']
+    FaqSection: typeof import('./components/sections/FaqSection.vue')['default']
+    HeroSection: typeof import('./components/sections/HeroSection.vue')['default']
     LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
     NavigationComponent: typeof import('./components/NavigationComponent.vue')['default']
+    PortfolioSection: typeof import('./components/sections/PortfolioSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SectionTitle: typeof import('./components/ui/SectionTitle.vue')['default']
     TheFooterComponent: typeof import('./components/TheFooterComponent.vue')['default']
     Toast: typeof import('./components/Toast.vue')['default']
   }
