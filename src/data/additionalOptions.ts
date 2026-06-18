@@ -55,11 +55,11 @@ export const additionalOptions: AdditionalOption[] = [
   {
     id: 'wall-connection',
     title: 'Примыкание к стене',
-    description: 'Подскажем, какой вариант лучше подойдет: классическая вставка, галтель или аккуратный теневой профиль.',
+    description: 'Подскажем, какой вариант лучше подойдет: классическая вставка или аккуратный теневой профиль.',
     tags: [
       'Вставка',
       'Теневой профиль',
-      'Галтель',
+
     ],
     image: getOptionImage([
       'service-02-wall-junction.jpg',
