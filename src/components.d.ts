@@ -22,6 +22,7 @@ declare module 'vue' {
     CeilingTypesSection: typeof import('./components/sections/CeilingTypesSection.vue')['default']
     ContactsSection: typeof import('./components/sections/ContactsSection.vue')['default']
     FaqSection: typeof import('./components/sections/FaqSection.vue')['default']
+    FloatingContactButtons: typeof import('./components/ui/FloatingContactButtons.vue')['default']
     HeroSection: typeof import('./components/sections/HeroSection.vue')['default']
     LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
     Ofertasection: typeof import('./components/sections/ofertasection.vue')['default']

@@ -3,7 +3,7 @@ export interface PhoneNumber {
   label: string
 }
 
-// Единый список реальных номеров для шапки и будущих CTA-блоков
+// Единый список реальных номеров для шапки, контактов и быстрых CTA-кнопок.
 export const phoneNumbers: PhoneNumber[] = [
   {
     href: 'tel:+79231555572',
@@ -16,3 +16,5 @@ export const phoneNumbers: PhoneNumber[] = [
 ]
 
 export const contactSchedule = 'Ежедневно с 9:00 до 21:00'
+
+export const whatsappLink = 'https://wa.me/79231555572'
