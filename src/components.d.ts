@@ -24,6 +24,7 @@ declare module 'vue' {
     FaqSection: typeof import('./components/sections/FaqSection.vue')['default']
     HeroSection: typeof import('./components/sections/HeroSection.vue')['default']
     LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
+    Ofertasection: typeof import('./components/sections/ofertasection.vue')['default']
     PortfolioSection: typeof import('./components/sections/PortfolioSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
