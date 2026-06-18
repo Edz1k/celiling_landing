@@ -40,13 +40,6 @@ declare module 'vue-router/auto-routes' {
       { all: ParamValue<false> },
       | never
     >,
-    '/oferta': RouteRecordInfo<
-      '/oferta',
-      '/oferta',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/README': RouteRecordInfo<
       '/README',
       '/README',
@@ -76,12 +69,6 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[...all].vue': {
       routes:
         | '/[...all]'
-      views:
-        | never
-    }
-    'src/pages/oferta.vue': {
-      routes:
-        | '/oferta'
       views:
         | never
     }
