@@ -517,11 +517,38 @@ onBeforeUnmount(() => {
 
 /* Mobile: прячем desktop-меню, показываем звонок и бургер */
 @media (max-width: 768px) {
+  :global(section[id]) {
+    scroll-margin-top: 82px;
+  }
+
+  :global(main) {
+    padding-top: 64px;
+  }
+
+  .app-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 86;
+    width: 100%;
+    background: rgba(255, 252, 247, 0.9);
+    box-shadow: 0 10px 30px rgba(31, 31, 31, 0.06);
+    backdrop-filter: blur(16px);
+  }
+
+  .app-header--scrolled,
+  .app-header--menu-open,
+  .app-header--call-open {
+    background: rgba(255, 252, 247, 0.94);
+    box-shadow: 0 16px 42px rgba(31, 31, 31, 0.12);
+  }
+
   .app-header__inner {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    min-height: 68px;
+    min-height: 64px;
     width: min(100% - 28px, 1220px);
   }
 
@@ -538,6 +565,7 @@ onBeforeUnmount(() => {
 
   .app-header__mobile-panel {
     display: block;
+    max-height: calc(100vh - 92px);
   }
 }
 

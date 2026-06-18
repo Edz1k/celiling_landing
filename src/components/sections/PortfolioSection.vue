@@ -4,6 +4,7 @@ import type { PortfolioItem } from '~/data/portfolio'
 import { portfolioItems } from '~/data/portfolio'
 
 const selectedItem = ref<PortfolioItem | null>(null)
+const consultationItem = ref<PortfolioItem | null>(null)
 
 function openPortfolioItem(item: PortfolioItem) {
   selectedItem.value = item
@@ -11,6 +12,15 @@ function openPortfolioItem(item: PortfolioItem) {
 
 function closePortfolioItem() {
   selectedItem.value = null
+}
+
+function openConsultation(item: PortfolioItem) {
+  selectedItem.value = null
+  consultationItem.value = item
+}
+
+function closeConsultation() {
+  consultationItem.value = null
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -58,14 +68,22 @@ onBeforeUnmount(() => {
             <img v-if="item.image" :src="item.image" :alt="item.imageAlt">
             <div v-else class="portfolio-section__placeholder" aria-hidden="true" />
 
-            <div class="portfolio-section__overlay">
-              <span>Смотреть работу</span>
-            </div>
+            <div class="portfolio-section__overlay" aria-hidden="true" />
           </div>
 
           <div class="portfolio-section__body">
             <h3>{{ item.title }}</h3>
             <p>{{ item.description }}</p>
+
+            <button
+              class="portfolio-section__button"
+              type="button"
+              :aria-label="`Открыть подробнее: ${item.title}`"
+              @click.stop="openPortfolioItem(item)"
+            >
+              <span>Подробнее</span>
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
         </article>
       </div>
@@ -88,6 +106,7 @@ onBeforeUnmount(() => {
 
             <div class="portfolio-modal__image">
               <img v-if="selectedItem.image" :src="selectedItem.image" :alt="selectedItem.imageAlt">
+              <div v-else class="portfolio-modal__placeholder" aria-hidden="true" />
             </div>
 
             <div class="portfolio-modal__content">
@@ -103,11 +122,25 @@ onBeforeUnmount(() => {
                   <dd>{{ feature.value }}</dd>
                 </div>
               </dl>
+
+              <button class="portfolio-modal__cta" type="button" @click="openConsultation(selectedItem)">
+                Получить консультацию
+              </button>
             </div>
           </div>
         </div>
       </Transition>
     </Teleport>
+
+    <CallbackModal
+      v-if="consultationItem"
+      title="Получить консультацию от специалиста"
+      subtitle="Расскажем по выбранной работе, подскажем похожее решение для вашего помещения и сориентируем по примерной стоимости."
+      submit-text="Получить консультацию"
+      source="portfolio"
+      :selected-option="consultationItem.title"
+      @close="closeConsultation"
+    />
   </section>
 </template>
 
@@ -116,7 +149,7 @@ onBeforeUnmount(() => {
   overflow: hidden;
 }
 
-/* Портфолио: реальные фотографии работ в премиальной сетке. */
+/* Портфолио оформлено в одном стиле с блоком дополнительных решений. */
 .portfolio-section {
   padding: 82px 0;
   background: #fff;
@@ -125,14 +158,18 @@ onBeforeUnmount(() => {
 .portfolio-section__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
   gap: 22px;
 }
 
 .portfolio-section__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   border: 1px solid rgba(201, 154, 75, 0.14);
-  border-radius: 26px;
-  background: rgba(255, 250, 243, 0.86);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 18px 48px rgba(31, 31, 31, 0.07);
   cursor: pointer;
   outline: none;
@@ -145,18 +182,19 @@ onBeforeUnmount(() => {
 .portfolio-section__card:hover,
 .portfolio-section__card:focus-visible {
   border-color: rgba(201, 154, 75, 0.32);
-  box-shadow: 0 24px 62px rgba(31, 31, 31, 0.11);
+  box-shadow: 0 24px 62px rgba(31, 31, 31, 0.12);
   transform: translateY(-4px);
 }
 
 .portfolio-section__preview {
   position: relative;
-  aspect-ratio: 4 / 3;
+  height: 238px;
   overflow: hidden;
   background: linear-gradient(135deg, #cfc5b8, #f4eee5 55%, #bca88e);
 }
 
-.portfolio-section__preview img {
+.portfolio-section__preview img,
+.portfolio-section__placeholder {
   display: block;
   width: 100%;
   height: 100%;
@@ -165,35 +203,22 @@ onBeforeUnmount(() => {
 }
 
 .portfolio-section__card:hover .portfolio-section__preview img,
-.portfolio-section__card:focus-visible .portfolio-section__preview img {
+.portfolio-section__card:focus-visible .portfolio-section__preview img,
+.portfolio-section__card:hover .portfolio-section__placeholder,
+.portfolio-section__card:focus-visible .portfolio-section__placeholder {
   transform: scale(1.05);
 }
 
 .portfolio-section__placeholder {
-  width: 100%;
-  height: 100%;
   background: linear-gradient(135deg, #cfc5b8, #f4eee5 55%, #bca88e);
 }
 
 .portfolio-section__overlay {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(31, 31, 31, 0.36);
-  opacity: 0;
+  background: linear-gradient(180deg, rgba(31, 31, 31, 0.04), rgba(31, 31, 31, 0.28));
+  opacity: 0.72;
   transition: opacity 260ms ease;
-}
-
-.portfolio-section__overlay span {
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 18px;
-  backdrop-filter: blur(10px);
 }
 
 .portfolio-section__card:hover .portfolio-section__overlay,
@@ -202,9 +227,11 @@ onBeforeUnmount(() => {
 }
 
 .portfolio-section__body {
-  display: grid;
-  gap: 10px;
-  padding: 22px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
 }
 
 .portfolio-section__body h3,
@@ -213,17 +240,47 @@ onBeforeUnmount(() => {
 }
 
 .portfolio-section__body h3 {
-  color: var(--landing-text);
-  font-size: 20px;
+  color: #1f1f1f;
+  font-size: 21px;
   font-weight: 600;
-  line-height: 1.24;
+  line-height: 1.25;
 }
 
 .portfolio-section__body p {
-  color: var(--landing-muted);
+  color: #666;
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.58;
+  line-height: 1.65;
+}
+
+.portfolio-section__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  gap: 10px;
+  min-height: 42px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--landing-gold);
+  box-shadow: 0 14px 28px rgba(201, 154, 75, 0.2);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: auto;
+  padding: 0 18px;
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.portfolio-section__button:hover {
+  background: var(--landing-gold-dark);
+  box-shadow: 0 18px 34px rgba(201, 154, 75, 0.3);
+  transform: translateY(-1px);
 }
 
 .portfolio-modal {
@@ -233,7 +290,7 @@ onBeforeUnmount(() => {
   display: grid;
   place-items: center;
   overflow-y: auto;
-  background: rgba(31, 31, 31, 0.48);
+  background: rgba(31, 31, 31, 0.5);
   padding: 24px;
   backdrop-filter: blur(12px);
 }
@@ -241,16 +298,16 @@ onBeforeUnmount(() => {
 .portfolio-modal__window {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(320px, 1.12fr) minmax(0, 0.88fr);
-  gap: 24px;
-  width: min(100%, 1080px);
-  max-height: min(860px, calc(100vh - 48px));
+  grid-template-columns: minmax(280px, 0.45fr) minmax(0, 0.55fr);
+  gap: 18px;
+  width: min(100%, 860px);
+  max-height: min(720px, calc(100vh - 48px));
   overflow-y: auto;
   border: 1px solid rgba(201, 154, 75, 0.18);
   border-radius: 32px;
   background: radial-gradient(circle at 86% 8%, rgba(201, 154, 75, 0.14), transparent 30%), #fffaf2;
   box-shadow: 0 34px 90px rgba(31, 31, 31, 0.24);
-  padding: clamp(18px, 3vw, 30px);
+  padding: clamp(16px, 2.4vw, 24px);
 }
 
 .portfolio-modal__close {
@@ -285,22 +342,33 @@ onBeforeUnmount(() => {
   background: #f7f2eb;
 }
 
-.portfolio-modal__image img {
+.portfolio-modal__image img,
+.portfolio-modal__placeholder {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 520px;
+  min-height: 360px;
   object-fit: cover;
+  transition: transform 420ms ease;
+}
+
+.portfolio-modal__image:hover img,
+.portfolio-modal__image:hover .portfolio-modal__placeholder {
+  transform: scale(1.03);
+}
+
+.portfolio-modal__placeholder {
+  background: linear-gradient(135deg, #cfc5b8, #f4eee5 55%, #bca88e);
 }
 
 .portfolio-modal__content {
   display: grid;
   align-content: start;
-  gap: 14px;
+  gap: 12px;
   border: 1px solid rgba(201, 154, 75, 0.16);
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.68);
-  padding: clamp(22px, 3vw, 30px);
+  padding: clamp(20px, 2.6vw, 26px);
 }
 
 .portfolio-modal__eyebrow {
@@ -314,7 +382,7 @@ onBeforeUnmount(() => {
 
 .portfolio-modal__content h3 {
   color: #1f1f1f;
-  font-size: clamp(28px, 3.2vw, 42px);
+  font-size: clamp(26px, 2.8vw, 36px);
   font-weight: 700;
   line-height: 1.08;
   margin: 0;
@@ -322,7 +390,7 @@ onBeforeUnmount(() => {
 
 .portfolio-modal__content p {
   color: #666;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.68;
   margin: 0;
@@ -330,23 +398,29 @@ onBeforeUnmount(() => {
 
 .portfolio-modal__features {
   display: grid;
-  gap: 10px;
-  margin: 8px 0 0;
+  gap: 9px;
+  margin: 6px 0 0;
 }
 
 .portfolio-modal__features div {
-  border-radius: 18px;
-  background: #f7f2eb;
-  padding: 14px;
+  display: grid;
+  gap: 3px;
+  border-bottom: 1px solid rgba(201, 154, 75, 0.14);
+  padding-bottom: 8px;
+}
+
+.portfolio-modal__features div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .portfolio-modal__features dt {
   color: var(--landing-gold-dark);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.2;
-  margin: 0 0 6px;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -356,6 +430,34 @@ onBeforeUnmount(() => {
   font-weight: 400;
   line-height: 1.45;
   margin: 0;
+}
+
+.portfolio-modal__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--landing-gold);
+  box-shadow: 0 16px 32px rgba(201, 154, 75, 0.24);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+  padding: 0 22px;
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.portfolio-modal__cta:hover {
+  background: var(--landing-gold-dark);
+  box-shadow: 0 20px 38px rgba(201, 154, 75, 0.32);
+  transform: translateY(-1px);
 }
 
 .portfolio-modal-enter-active,
@@ -390,8 +492,9 @@ onBeforeUnmount(() => {
     grid-template-columns: 1fr;
   }
 
-  .portfolio-modal__image img {
-    min-height: 360px;
+  .portfolio-modal__image img,
+  .portfolio-modal__placeholder {
+    min-height: 300px;
   }
 }
 
@@ -404,9 +507,12 @@ onBeforeUnmount(() => {
     grid-template-columns: 1fr;
   }
 
-  .portfolio-section__overlay {
-    position: static;
-    display: none;
+  .portfolio-section__preview {
+    height: 220px;
+  }
+
+  .portfolio-section__body {
+    padding: 22px;
   }
 
   .portfolio-modal {
@@ -415,6 +521,7 @@ onBeforeUnmount(() => {
   }
 
   .portfolio-modal__window {
+    width: min(100%, 92vw);
     max-height: calc(100vh - 24px);
     border-radius: 26px;
     padding: 18px;
@@ -425,8 +532,13 @@ onBeforeUnmount(() => {
     right: 12px;
   }
 
-  .portfolio-modal__image img {
+  .portfolio-modal__image img,
+  .portfolio-modal__placeholder {
     min-height: 240px;
+  }
+
+  .portfolio-modal__cta {
+    width: 100%;
   }
 }
 </style>
