@@ -30,10 +30,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-01-paryashchiy-potolok.jpg'),
     imageAlt: 'Парящий натяжной потолок сложной геометрии с подсветкой',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый, парящий' },
+      { label: 'Тип потолка', value: 'Матовый, парящий' },
       { label: 'Освещение', value: 'LED-подсветка по периметру, декоративные линии' },
-      { label: 'Примыкание', value: 'аккуратное примыкание к стенам' },
-      { label: 'Особенности', value: 'сложная геометрия, визуальный эффект легкости' },
+      { label: 'Примыкание', value: 'Аккуратное примыкание к стенам' },
+      { label: 'Особенности', value: 'Сложная геометрия, визуальный эффект легкости' },
     ],
   },
   {
@@ -43,10 +43,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-02-konturnaya-podsvetka.jpg'),
     imageAlt: 'Парящий натяжной потолок с контурной подсветкой',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый, парящий' },
-      { label: 'Освещение', value: 'контурная подсветка, точки под светильники' },
-      { label: 'Примыкание', value: 'подсветка вдоль стен' },
-      { label: 'Особенности', value: 'теплый свет, современная геометрия' },
+      { label: 'Тип потолка', value: 'Матовый, парящий' },
+      { label: 'Освещение', value: 'Контурная подсветка, точки под светильники' },
+      { label: 'Примыкание', value: 'Подсветка вдоль стен' },
+      { label: 'Особенности', value: 'Теплый свет, современная геометрия' },
     ],
   },
   {
@@ -56,10 +56,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-03-tenevoy-potolok.jpg'),
     imageAlt: 'Натяжной потолок с теневым примыканием',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый, теневой' },
-      { label: 'Освещение', value: 'точечные светильники, скрытая подсветка' },
-      { label: 'Примыкание', value: 'теневой профиль' },
-      { label: 'Особенности', value: 'минимализм, чистые линии' },
+      { label: 'Тип потолка', value: 'Матовый, теневой' },
+      { label: 'Освещение', value: 'Точечные светильники, скрытая подсветка' },
+      { label: 'Примыкание', value: 'Теневой профиль' },
+      { label: 'Особенности', value: 'Минимализм, чистые линии' },
     ],
   },
   {
@@ -69,10 +69,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-04-skrytaya-podsvetka.jpg'),
     imageAlt: 'Матовый потолок со скрытой подсветкой',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый' },
-      { label: 'Освещение', value: 'скрытая подсветка, встроенные светильники' },
-      { label: 'Примыкание', value: 'аккуратное примыкание к стенам' },
-      { label: 'Особенности', value: 'спокойный дизайн, равномерное освещение' },
+      { label: 'Тип потолка', value: 'Матовый' },
+      { label: 'Освещение', value: 'Скрытая подсветка, встроенные светильники' },
+      { label: 'Примыкание', value: 'Аккуратное примыкание к стенам' },
+      { label: 'Особенности', value: 'Спокойный дизайн, равномерное освещение' },
     ],
   },
   {
@@ -82,10 +82,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-05-tenevoe-primykanie.jpg'),
     imageAlt: 'Теневой потолок в современном интерьере',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый, теневой' },
-      { label: 'Освещение', value: 'контурная подсветка' },
-      { label: 'Примыкание', value: 'теневой профиль' },
-      { label: 'Особенности', value: 'современный внешний вид, эффект чистого периметра' },
+      { label: 'Тип потолка', value: 'Матовый, теневой' },
+      { label: 'Освещение', value: 'Контурная подсветка' },
+      { label: 'Примыкание', value: 'Теневой профиль' },
+      { label: 'Особенности', value: 'Современный внешний вид, эффект чистого периметра' },
     ],
   },
   {
@@ -95,10 +95,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-06-lineynoe-osveshchenie.jpg'),
     imageAlt: 'Потолок с линейным освещением',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый' },
-      { label: 'Освещение', value: 'встроенные световые линии' },
-      { label: 'Примыкание', value: 'аккуратное примыкание к стенам' },
-      { label: 'Особенности', value: 'дизайнерский свет, современный стиль' },
+      { label: 'Тип потолка', value: 'Матовый' },
+      { label: 'Освещение', value: 'Встроенные световые линии' },
+      { label: 'Примыкание', value: 'Аккуратное примыкание к стенам' },
+      { label: 'Особенности', value: 'Дизайнерский свет, современный стиль' },
     ],
   },
   {
@@ -108,10 +108,10 @@ export const portfolioItems: PortfolioItem[] = [
     image: getPortfolioImage('portfolio-07-dekorativnyy-karniz.jpg'),
     imageAlt: 'Парящий потолок с декоративным карнизом',
     characteristics: [
-      { label: 'Тип потолка', value: 'матовый, парящий' },
-      { label: 'Освещение', value: 'скрытая LED-подсветка, люстры' },
-      { label: 'Примыкание', value: 'декоративный карниз' },
-      { label: 'Особенности', value: 'сочетание классики и современного света' },
+      { label: 'Тип потолка', value: 'Матовый, парящий' },
+      { label: 'Освещение', value: 'Скрытая LED-подсветка, люстры' },
+      { label: 'Примыкание', value: 'Декоративный карниз' },
+      { label: 'Особенности', value: 'Сочетание классики и современного света' },
     ],
   },
 ]
