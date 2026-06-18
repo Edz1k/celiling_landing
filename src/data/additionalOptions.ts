@@ -37,6 +37,7 @@ export const additionalOptions: AdditionalOption[] = [
       'Люстры',
       'Световые линии',
       'Магнитные треки',
+      'Слот система',
     ],
     image: getOptionImage([
       'service-01-lighting.jpg',
@@ -59,6 +60,8 @@ export const additionalOptions: AdditionalOption[] = [
     tags: [
       'Вставка',
       'Теневой профиль',
+      'Безщелевое примыкание',
+      'Парящий потолок',
 
     ],
     image: getOptionImage([
@@ -70,7 +73,6 @@ export const additionalOptions: AdditionalOption[] = [
     modalDescription: 'От примыкания зависит, насколько аккуратно потолок будет смотреться по периметру. Можно выбрать классическую вставку, декоративную галтель или современный теневой профиль.',
     features: [
       'вставка - простой и практичный вариант',
-      'галтель - более классический внешний вид',
       'теневой профиль - современный эффект ровного зазора',
       'аккуратный периметр без лишних деталей',
     ],
@@ -83,6 +85,7 @@ export const additionalOptions: AdditionalOption[] = [
       'Скрытая гардина',
       'Ниша под шторы',
       'Потолочный карниз',
+      'Карниз с подсветкой',
     ],
     image: getOptionImage([
       'service-03-curtains-cornices.jpg',
