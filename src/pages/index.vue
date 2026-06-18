@@ -16,6 +16,8 @@ useHead({
   <PortfolioSection />
   <FaqSection />
   <ContactsSection />
+  <Ofertasection />
+  <FloatingContactButtons />
 </template>
 
 <route lang="yaml">

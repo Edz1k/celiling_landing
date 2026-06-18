@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { phoneNumbers } from '~/data/contacts'
+import { contactSchedule, phoneNumbers } from '~/data/contacts'
 
-// Мессенджеры пока работают как визуальные заглушки: реальные ссылки подключим позже.
 const messengers = [
   {
+    id: 'whatsapp',
     label: 'WhatsApp',
-    mark: 'W',
   },
   {
+    id: 'telegram',
     label: 'Telegram',
-    mark: 'T',
   },
   {
+    id: 'max',
     label: 'MAX',
-    mark: 'MAX',
   },
 ]
 
-const contactSchedule = 'Ежедневно с 9:00 до 21:00'
 const isCallbackModalOpen = ref(false)
 
 function openCallbackModal() {
@@ -58,7 +56,11 @@ function closeCallbackModal() {
                 class="contacts-section__phone"
                 :href="phone.href"
               >
-                <span aria-hidden="true">☎</span>
+                <span aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6.6 10.8c1.6 3.2 3.4 5 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.8 21 3 13.2 3 3.7c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2Z" />
+                  </svg>
+                </span>
                 {{ phone.label }}
               </a>
             </div>
@@ -85,12 +87,21 @@ function closeCallbackModal() {
             <div class="contacts-section__messengers" aria-label="Будущие мессенджеры">
               <button
                 v-for="messenger in messengers"
-                :key="messenger.label"
+                :key="messenger.id"
                 class="contacts-section__messenger"
+                :class="`contacts-section__messenger--${messenger.id}`"
                 type="button"
                 disabled
               >
-                <span>{{ messenger.mark }}</span>
+                <span class="contacts-section__messenger-icon" aria-hidden="true">
+                  <svg v-if="messenger.id === 'whatsapp'" viewBox="0 0 24 24">
+                    <path d="M12 2.4A9.5 9.5 0 0 0 3.9 17l-1 4.6 4.7-1A9.5 9.5 0 1 0 12 2.4Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.6.6-2.7-.2-.3a7.6 7.6 0 1 1 6.6 3.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.6-1.4-.8-1.9c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a10.2 10.2 0 0 0 4 3.5c1.5.6 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .2-1.1-.1-.1-.2-.2-.4-.3Z" />
+                  </svg>
+                  <svg v-else-if="messenger.id === 'telegram'" viewBox="0 0 24 24">
+                    <path d="M20.9 4.4 18 18.1c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.6 12.2 2.2 10.8c-1-.3-1-1 .2-1.5L19.6 2.7c.8-.3 1.5.2 1.3 1.7Z" />
+                  </svg>
+                  <strong v-else>MAX</strong>
+                </span>
                 <small>{{ messenger.label }}</small>
               </button>
             </div>
@@ -231,8 +242,13 @@ function closeCallbackModal() {
   border-radius: 50%;
   background: rgba(201, 154, 75, 0.16);
   color: var(--landing-gold);
-  font-size: 15px;
   line-height: 1;
+}
+
+.contacts-section__phone svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
 }
 
 .contacts-section__schedule,
@@ -280,7 +296,7 @@ function closeCallbackModal() {
   color: #f7f2eb;
   cursor: not-allowed;
   font: inherit;
-  opacity: 0.88;
+  opacity: 0.9;
   padding: 9px 12px;
   text-align: left;
   transition:
@@ -295,18 +311,40 @@ function closeCallbackModal() {
   transform: translateY(-1px);
 }
 
-.contacts-section__messenger span {
+.contacts-section__messenger-icon {
   display: grid;
   flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   place-items: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--landing-gold), var(--landing-gold-dark));
   color: #fff;
-  font-size: 12px;
-  font-weight: 600;
   line-height: 1;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.contacts-section__messenger-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.contacts-section__messenger-icon strong {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.contacts-section__messenger--whatsapp .contacts-section__messenger-icon {
+  background: #25d366;
+}
+
+.contacts-section__messenger--telegram .contacts-section__messenger-icon {
+  background: #2aabee;
+}
+
+.contacts-section__messenger--max .contacts-section__messenger-icon {
+  background: #262626;
 }
 
 .contacts-section__messenger small {
@@ -345,14 +383,12 @@ function closeCallbackModal() {
   transform: translateY(-1px);
 }
 
-/* Планшет: карточки становятся одной колонкой, сохраняя компактность и читаемость. */
 @media (max-width: 900px) {
   .contacts-section__content {
     grid-template-columns: 1fr;
   }
 }
 
-/* Mobile: меньше воздуха, но все элементы остаются удобными для нажатия. */
 @media (max-width: 560px) {
   .contacts-section {
     padding: 64px 0 76px;

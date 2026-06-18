@@ -14,7 +14,7 @@ function closeCallbackModal() {
   <section id="hero" class="hero-section">
     <AppContainer>
       <div class="hero-section__grid">
-        <!-- Левая колонка: основной оффер, текст и кнопки -->
+        <!-- Левая колонка: основной оффер, преимущества и быстрые действия. -->
         <div class="hero-section__content">
           <p class="hero-section__badge">
             Бесплатный замер сегодня
@@ -48,7 +48,7 @@ function closeCallbackModal() {
             </li>
           </ul>
 
-          <!-- Основные действия пользователя -->
+          <!-- CTA-зона: кнопка заявки и быстрые мессенджеры без лишней подписи. -->
           <div class="hero-section__actions">
             <AppButton @click="openCallbackModal">
               Мы вам позвоним!
@@ -56,23 +56,23 @@ function closeCallbackModal() {
 
             <div class="hero-section__messengers" aria-label="Мессенджеры">
               <a class="hero-section__messenger hero-section__messenger--whatsapp" href="https://wa.me/79231555572" aria-label="Написать в WhatsApp">
-                W
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.4A9.5 9.5 0 0 0 3.9 17l-1 4.6 4.7-1A9.5 9.5 0 1 0 12 2.4Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.6.6-2.7-.2-.3a7.6 7.6 0 1 1 6.6 3.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.6-1.4-.8-1.9c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a10.2 10.2 0 0 0 4 3.5c1.5.6 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .2-1.1-.1-.1-.2-.2-.4-.3Z" />
+                </svg>
               </a>
               <a class="hero-section__messenger hero-section__messenger--telegram" href="#contacts" aria-label="Написать в Telegram">
-                T
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.9 4.4 18 18.1c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.6 12.2 2.2 10.8c-1-.3-1-1 .2-1.5L19.6 2.7c.8-.3 1.5.2 1.3 1.7Z" />
+                </svg>
               </a>
               <a class="hero-section__messenger hero-section__messenger--max" href="#contacts" aria-label="Написать в MAX">
                 MAX
               </a>
             </div>
           </div>
-
-          <p class="hero-section__note">
-            Напишите нам любым удобным способом
-          </p>
         </div>
 
-        <!-- Правая колонка: сам интерьерный фон остается главным визуалом, здесь только легкие акценты -->
+        <!-- Правая колонка: фон остается главным визуалом, здесь только легкий акцент. -->
         <div class="hero-section__visual" aria-hidden="true">
           <div class="hero-section__discount">
             <span>10%</span>
@@ -87,7 +87,7 @@ function closeCallbackModal() {
 </template>
 
 <style scoped>
-/* Главный экран: интерьерный WebP + светлый overlay для читаемости текста */
+/* Главный экран: интерьерный фон и светлый overlay для читаемости текста. */
 .hero-section {
   position: relative;
   display: flex;
@@ -114,7 +114,6 @@ function closeCallbackModal() {
   content: '';
 }
 
-/* Две колонки на desktop: сильный текст слева, воздух и акценты справа */
 .hero-section__grid {
   position: relative;
   z-index: 1;
@@ -236,7 +235,7 @@ function closeCallbackModal() {
   border-radius: 50%;
   box-shadow: 0 16px 34px rgba(31, 31, 31, 0.12);
   color: #fff;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   transition:
@@ -249,6 +248,12 @@ function closeCallbackModal() {
   transform: translateY(-2px);
 }
 
+.hero-section__messenger svg {
+  width: 29px;
+  height: 29px;
+  fill: currentColor;
+}
+
 .hero-section__messenger--whatsapp {
   background: #25d366;
 }
@@ -259,14 +264,6 @@ function closeCallbackModal() {
 
 .hero-section__messenger--max {
   background: #262626;
-  font-size: 13px;
-}
-
-.hero-section__note {
-  color: var(--landing-muted);
-  font-size: 13px;
-  font-weight: 400;
-  margin: 14px 0 0 260px;
 }
 
 .hero-section__visual {
@@ -300,7 +297,6 @@ function closeCallbackModal() {
   line-height: 1;
 }
 
-/* Планшет: уменьшаем масштаб hero, но сохраняем двухколоночную композицию */
 @media (max-width: 1020px) {
   .hero-section {
     min-height: 680px;
@@ -315,7 +311,6 @@ function closeCallbackModal() {
   }
 }
 
-/* Mobile: текст становится компактнее, фон затемняется светлым overlay */
 @media (max-width: 760px) {
   .hero-section {
     align-items: flex-start;
@@ -376,8 +371,9 @@ function closeCallbackModal() {
     height: 50px;
   }
 
-  .hero-section__note {
-    margin-left: 0;
+  .hero-section__messenger svg {
+    width: 25px;
+    height: 25px;
   }
 
   .hero-section__visual {
