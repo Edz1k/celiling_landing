@@ -25,6 +25,7 @@ declare module 'vue' {
     FloatingContactButtons: typeof import('./components/ui/FloatingContactButtons.vue')['default']
     HeroSection: typeof import('./components/sections/HeroSection.vue')['default']
     LogoMark: typeof import('./components/ui/LogoMark.vue')['default']
+    ModalCloseButton: typeof import('./components/ui/ModalCloseButton.vue')['default']
     Ofertasection: typeof import('./components/sections/ofertasection.vue')['default']
     PortfolioSection: typeof import('./components/sections/PortfolioSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
