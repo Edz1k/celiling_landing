@@ -104,11 +104,9 @@ onBeforeUnmount(() => {
           :aria-label="selectedOption.title"
           @click.self="closeOption"
         >
-          <div class="additional-option-modal__window">
-            <button class="additional-option-modal__close" type="button" aria-label="Закрыть окно" @click="closeOption">
-              ×
-            </button>
+          <ModalCloseButton @close="closeOption" />
 
+          <div class="additional-option-modal__window">
             <div class="additional-option-modal__image" :style="{ background: selectedOption.gradient }">
               <img v-if="selectedOption.image" :src="selectedOption.image" :alt="selectedOption.imageAlt">
               <div v-else class="additional-option-modal__placeholder" aria-hidden="true" />
@@ -340,12 +338,13 @@ onBeforeUnmount(() => {
 .additional-option-modal {
   position: fixed;
   inset: 0;
-  z-index: 90;
+  z-index: 9998;
   display: grid;
   place-items: center;
   overflow-y: auto;
   background: rgba(31, 31, 31, 0.5);
   padding: 24px;
+  pointer-events: auto;
   backdrop-filter: blur(12px);
 }
 
@@ -362,32 +361,6 @@ onBeforeUnmount(() => {
   background: radial-gradient(circle at 86% 8%, rgba(201, 154, 75, 0.14), transparent 30%), #fffaf2;
   box-shadow: 0 34px 90px rgba(31, 31, 31, 0.24);
   padding: clamp(16px, 2.4vw, 24px);
-}
-
-.additional-option-modal__close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 2;
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 1px solid rgba(201, 154, 75, 0.2);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.84);
-  color: #1f1f1f;
-  cursor: pointer;
-  font-size: 28px;
-  line-height: 1;
-  transition:
-    background 220ms ease,
-    transform 220ms ease;
-}
-
-.additional-option-modal__close:hover {
-  background: #fff;
-  transform: rotate(6deg);
 }
 
 .additional-option-modal__image {
@@ -591,11 +564,6 @@ onBeforeUnmount(() => {
     max-height: calc(100vh - 24px);
     border-radius: 26px;
     padding: 18px;
-  }
-
-  .additional-option-modal__close {
-    top: 12px;
-    right: 12px;
   }
 
   .additional-option-modal__image img,

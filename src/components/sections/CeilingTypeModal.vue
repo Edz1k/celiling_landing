@@ -66,11 +66,9 @@ onBeforeUnmount(() => {
         :aria-label="type.title"
         @click.self="closeModal"
       >
-        <div class="catalog-modal__window">
-          <button class="catalog-modal__close" type="button" aria-label="Закрыть модалку" @click="closeModal">
-            ×
-          </button>
+        <ModalCloseButton @close="closeModal" />
 
+        <div class="catalog-modal__window">
           <!-- Верх модалки: слева визуальный placeholder, справа информация о материале -->
           <div class="catalog-modal__hero">
             <div class="catalog-modal__image" :style="{ background: type.fallbackGradient }">
@@ -178,12 +176,13 @@ onBeforeUnmount(() => {
 .catalog-modal {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 9998;
   display: grid;
   place-items: center;
   overflow-y: auto;
   background: rgba(31, 31, 31, 0.42);
   padding: 24px;
+  pointer-events: auto;
   backdrop-filter: blur(12px);
 }
 
@@ -197,32 +196,6 @@ onBeforeUnmount(() => {
   background: radial-gradient(circle at 88% 8%, rgba(201, 154, 75, 0.14), transparent 26%), #fffaf2;
   box-shadow: 0 34px 90px rgba(31, 31, 31, 0.24);
   padding: clamp(20px, 3vw, 34px);
-}
-
-.catalog-modal__close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 2;
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 1px solid rgba(201, 154, 75, 0.2);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.84);
-  color: #1f1f1f;
-  cursor: pointer;
-  font-size: 28px;
-  line-height: 1;
-  transition:
-    background 220ms ease,
-    transform 220ms ease;
-}
-
-.catalog-modal__close:hover {
-  background: #fff;
-  transform: rotate(6deg);
 }
 
 /* Верхняя композиция: фото/placeholder и основная информация */
@@ -546,11 +519,6 @@ onBeforeUnmount(() => {
     max-height: calc(100vh - 24px);
     border-radius: 26px;
     padding: 18px;
-  }
-
-  .catalog-modal__close {
-    top: 12px;
-    right: 12px;
   }
 
   .catalog-modal__image {
