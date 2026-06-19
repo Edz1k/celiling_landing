@@ -377,14 +377,23 @@ function closeCallbackModal() {
   }
 
   .hero-section__visual {
-    min-height: 82px;
+    width: 100%;
+    min-height: 0;
   }
 
   .hero-section__discount {
-    right: auto;
-    bottom: 0;
-    left: 0;
-    width: min(100%, 260px);
+    position: static;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+
+  .hero-section__discount span {
+    font-size: 30px;
   }
 }
 </style>
