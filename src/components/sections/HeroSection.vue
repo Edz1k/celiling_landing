@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { maxLink } from '~/data/contacts'
+
 const isCallbackModalOpen = ref(false)
 
 function openCallbackModal() {
@@ -65,7 +67,13 @@ function closeCallbackModal() {
                   <path d="M20.9 4.4 18 18.1c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.6 12.2 2.2 10.8c-1-.3-1-1 .2-1.5L19.6 2.7c.8-.3 1.5.2 1.3 1.7Z" />
                 </svg>
               </a>
-              <a class="hero-section__messenger hero-section__messenger--max" href="#contacts" aria-label="Написать в MAX">
+              <a
+                class="hero-section__messenger hero-section__messenger--max"
+                :href="maxLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Написать в MAX"
+              >
                 MAX
               </a>
             </div>
@@ -377,14 +385,23 @@ function closeCallbackModal() {
   }
 
   .hero-section__visual {
-    min-height: 82px;
+    width: 100%;
+    min-height: 0;
   }
 
   .hero-section__discount {
-    right: auto;
-    bottom: 0;
-    left: 0;
-    width: min(100%, 260px);
+    position: static;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+
+  .hero-section__discount span {
+    font-size: 30px;
   }
 }
 </style>

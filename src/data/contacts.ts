@@ -17,4 +17,6 @@ export const phoneNumbers: PhoneNumber[] = [
 
 export const contactSchedule = 'Ежедневно с 9:00 до 21:00'
 
-export const whatsappLink = 'https://wa.me/79231555572'
+export const whatsappLink = 'https://wa.me/79931897170'
+
+export const maxLink = 'https://max.ru/u/f9LHodD0cOJ4vG-tUatKytQvCD4AsWeChQJQaMwCqOxEwpPkzN_ZQCdpq7Q'

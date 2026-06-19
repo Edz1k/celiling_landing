@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { contactSchedule, phoneNumbers } from '~/data/contacts'
+import { contactSchedule, maxLink, phoneNumbers } from '~/data/contacts'
 
 const messengers = [
   {
     id: 'whatsapp',
     label: 'WhatsApp',
+    href: undefined,
   },
   {
     id: 'telegram',
     label: 'Telegram',
+    href: undefined,
   },
   {
     id: 'max',
     label: 'MAX',
+    href: maxLink,
   },
 ]
 
@@ -74,24 +77,32 @@ function closeCallbackModal() {
             </p>
           </div>
 
-          <!-- Правая карточка: будущие мессенджеры и кнопка существующей модалки обратного звонка. -->
+          <!-- Правая карточка: мессенджеры и кнопка существующей модалки обратного звонка. -->
           <div class="contacts-section__card contacts-section__card--actions">
             <div class="contacts-section__messenger-head">
               <p class="contacts-section__card-label">
                 Мессенджеры
               </p>
               <h3>Напишите нам удобным способом</h3>
-              <span>Скоро подключим все мессенджеры</span>
+              <span>MAX уже доступен, остальные мессенджеры скоро подключим</span>
             </div>
 
-            <div class="contacts-section__messengers" aria-label="Будущие мессенджеры">
-              <button
+            <div class="contacts-section__messengers" aria-label="Мессенджеры">
+              <component
+                :is="messenger.href ? 'a' : 'button'"
                 v-for="messenger in messengers"
                 :key="messenger.id"
                 class="contacts-section__messenger"
-                :class="`contacts-section__messenger--${messenger.id}`"
-                type="button"
-                disabled
+                :class="[
+                  `contacts-section__messenger--${messenger.id}`,
+                  { 'contacts-section__messenger--active': messenger.href },
+                ]"
+                :href="messenger.href"
+                :target="messenger.href ? '_blank' : undefined"
+                :rel="messenger.href ? 'noopener noreferrer' : undefined"
+                :type="messenger.href ? undefined : 'button'"
+                :disabled="!messenger.href"
+                :aria-label="messenger.href ? `Написать в ${messenger.label}` : undefined"
               >
                 <span class="contacts-section__messenger-icon" aria-hidden="true">
                   <svg v-if="messenger.id === 'whatsapp'" viewBox="0 0 24 24">
@@ -103,7 +114,7 @@ function closeCallbackModal() {
                   <strong v-else>MAX</strong>
                 </span>
                 <small>{{ messenger.label }}</small>
-              </button>
+              </component>
             </div>
 
             <button class="contacts-section__callback-button" type="button" @click="openCallbackModal">
@@ -299,10 +310,15 @@ function closeCallbackModal() {
   opacity: 0.9;
   padding: 9px 12px;
   text-align: left;
+  text-decoration: none;
   transition:
     border-color 220ms ease,
     background 220ms ease,
     transform 220ms ease;
+}
+
+.contacts-section__messenger--active {
+  cursor: pointer;
 }
 
 .contacts-section__messenger:hover {
