@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { contactSchedule, maxLink, phoneNumbers } from '~/data/contacts'
+import { contactSchedule, maxLink, phoneNumbers, whatsappLink } from '~/data/contacts'
 
 const messengers = [
   {
     id: 'whatsapp',
     label: 'WhatsApp',
-    href: undefined,
+    href: whatsappLink,
   },
   {
     id: 'telegram',
@@ -83,8 +83,8 @@ function closeCallbackModal() {
               <p class="contacts-section__card-label">
                 Мессенджеры
               </p>
-              <h3>Напишите нам удобным способом</h3>
-              <span>MAX уже доступен, остальные мессенджеры скоро подключим</span>
+              <h3>Напишите нам удобным для вас способом!</h3>
+              <span>Ответим в WhatsApp, MAX или Telegram</span>
             </div>
 
             <div class="contacts-section__messengers" aria-label="Мессенджеры">
