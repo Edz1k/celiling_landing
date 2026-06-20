@@ -61,7 +61,12 @@ function closeMaterial() {
       </div>
     </AppContainer>
 
-    <CeilingTypeModal v-if="selectedType" :type="selectedType" @close="closeMaterial" />
+    <CeilingTypeModal
+      v-if="selectedType"
+      :key="selectedType.id"
+      :type="selectedType"
+      @close="closeMaterial"
+    />
   </section>
 </template>
 

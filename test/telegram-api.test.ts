@@ -18,6 +18,27 @@ afterEach(() => {
 })
 
 describe('telegram lead service', () => {
+  it.each([
+    'Глянцевые потолки',
+    'Матовые потолки',
+    'Сатиновые потолки',
+    'Тканевые потолки',
+  ])('отправляет заявку для типа «%s»', async (selectedType) => {
+    vi.stubEnv('VITE_TELEGRAM_API_KEY', 'test-token')
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await useTelegramApi().sendTelegramLead({
+      ...lead,
+      selectedType,
+    })
+
+    const [, options] = fetchMock.mock.calls[0]
+    const payload = JSON.parse(options.body)
+
+    expect(payload.text).toContain(`🏠 Тип потолка: ${selectedType}`)
+  })
+
   it('отправляет все поля заявки в нужный чат', async () => {
     vi.stubEnv('VITE_TELEGRAM_API_KEY', 'test-token')
     vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '6991300314')
