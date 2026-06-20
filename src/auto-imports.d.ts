@@ -316,6 +316,9 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
+  export type { TelegramLead } from './composables/useTelegramApi'
+  import('./composables/useTelegramApi')
+  // @ts-ignore
   export type { ToastKind, AppToast } from './composables/useToast'
   import('./composables/useToast')
 }

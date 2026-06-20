@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
       title="Получить консультацию от специалиста"
       subtitle="Расскажем про освещение, примыкание к стене, гардины и карнизы. Подскажем, какое решение лучше подойдет под ваш потолок."
       submit-text="Получить консультацию"
-      source="additional_options"
+      source="Дополнительно к потолкам"
       :selected-option="consultationOption.title"
       @close="closeConsultation"
     />

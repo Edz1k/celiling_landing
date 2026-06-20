@@ -1,31 +1,77 @@
+export interface TelegramLead {
+  area?: string
+  comment?: string
+  curtainMeters?: string
+  lights?: string
+  name: string
+  phone: string
+  price?: string
+  selectedOption?: string
+  selectedType?: string
+  source: string
+}
+
+function addOptionalLine(lines: string[], icon: string, label: string, value?: string) {
+  const normalizedValue = value?.trim()
+
+  if (normalizedValue)
+    lines.push(`${icon} ${label}: ${normalizedValue}`)
+}
+
+function buildLeadMessage(lead: TelegramLead) {
+  const lines = [
+    '📥 Новая заявка с сайта',
+    '',
+    `👤 Имя: ${lead.name.trim()}`,
+    `📞 Телефон: ${lead.phone.trim()}`,
+  ]
+
+  addOptionalLine(lines, '💬', 'Комментарий', lead.comment)
+  addOptionalLine(lines, '📐', 'Площадь', lead.area ? `${lead.area} м²` : '')
+  addOptionalLine(lines, '💡', 'Светильники', lead.lights)
+  addOptionalLine(lines, '🏠', 'Тип потолка', lead.selectedType)
+  addOptionalLine(lines, '🔧', 'Выбранное решение', lead.selectedOption)
+  addOptionalLine(lines, '📏', 'Гардина', lead.curtainMeters ? `${lead.curtainMeters} м` : '')
+  addOptionalLine(lines, '💰', 'Расчет', lead.price)
+  addOptionalLine(lines, '📍', 'Источник', lead.source)
+
+  return lines.join('\n')
+}
+
 export function useTelegramApi() {
-  const sendBotMessage = async (message: string) => {
-    const token = import.meta.env.VITE_TELEGRAM_API_KEY
-    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
+  const token = import.meta.env.VITE_TELEGRAM_API_KEY
+  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID || '6991300314'
 
-    const url = `https://api.telegram.org/bot${token}/sendMessage`
-
-    const payload = {
-      chat_id: chatId,
-      text: message,
-    }
+  async function sendBotMessage(message: string) {
+    if (!token)
+      throw new Error('Telegram-бот не настроен.')
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+        }),
       })
 
-      if (!response.ok) {
-        throw new Error(`Failed to send message to Telegram: ${response.statusText}`)
-      }
+      if (!response.ok)
+        throw new Error('Telegram не принял заявку.')
     }
-    catch (error) {
-      throw new Error(`Error sending message to Telegram: ${error}`)
+    catch {
+      throw new Error('Не удалось отправить заявку. Попробуйте написать нам в WhatsApp или Telegram.')
     }
   }
-  return { sendBotMessage }
+
+  async function sendTelegramLead(lead: TelegramLead) {
+    if (!lead.name.trim() || !lead.phone.trim())
+      throw new Error('Укажите имя и номер телефона.')
+
+    await sendBotMessage(buildLeadMessage(lead))
+  }
+
+  return { sendBotMessage, sendTelegramLead }
 }

@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
       title="Получить консультацию от специалиста"
       subtitle="Расскажем по выбранной работе, подскажем похожее решение для вашего помещения и сориентируем по примерной стоимости."
       submit-text="Получить консультацию"
-      source="portfolio"
+      source="Портфолио"
       :selected-option="consultationItem.title"
       @close="closeConsultation"
     />

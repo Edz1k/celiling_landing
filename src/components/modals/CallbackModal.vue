@@ -18,6 +18,8 @@ const emit = defineEmits<{
 }>()
 
 const formMessage = ref('')
+const isSubmitting = ref(false)
+const { sendTelegramLead } = useTelegramApi()
 
 const callbackForm = reactive({
   comment: '',
@@ -29,19 +31,33 @@ function closeModal() {
   emit('close')
 }
 
-function submitCallback() {
-  const requestDraft = {
-    source: props.source,
-    selectedOption: props.selectedOption,
-    name: callbackForm.name,
-    phone: callbackForm.phone,
-    comment: callbackForm.comment,
+async function submitCallback() {
+  formMessage.value = ''
+
+  if (!callbackForm.name.trim() || !callbackForm.phone.trim()) {
+    formMessage.value = 'Укажите имя и номер телефона.'
+    return
   }
 
-  // Временный вывод заявки до подключения Telegram/CRM.
-  // eslint-disable-next-line no-console
-  console.log(requestDraft)
-  formMessage.value = 'Заявка подготовлена. Отправку подключим позже.'
+  isSubmitting.value = true
+
+  try {
+    await sendTelegramLead({
+      source: props.source,
+      selectedOption: props.selectedOption,
+      name: callbackForm.name,
+      phone: callbackForm.phone,
+      comment: callbackForm.comment,
+    })
+
+    formMessage.value = 'Спасибо! Заявка отправлена, мы скоро свяжемся с вами.'
+  }
+  catch {
+    formMessage.value = 'Не удалось отправить заявку. Попробуйте написать нам в WhatsApp или Telegram.'
+  }
+  finally {
+    isSubmitting.value = false
+  }
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -83,12 +99,12 @@ onBeforeUnmount(() => {
             <!-- Контакты клиента для будущего подключения отправки заявки -->
             <label>
               <span>Ваше имя</span>
-              <input v-model="callbackForm.name" type="text" autocomplete="name" placeholder="Ваше имя">
+              <input v-model="callbackForm.name" type="text" autocomplete="name" placeholder="Ваше имя" required>
             </label>
 
             <label>
               <span>Номер телефона</span>
-              <input v-model="callbackForm.phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__">
+              <input v-model="callbackForm.phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
             </label>
 
             <label>
@@ -96,8 +112,8 @@ onBeforeUnmount(() => {
               <textarea v-model="callbackForm.comment" rows="4" placeholder="Например: потолок в гостиной, 18 м²" />
             </label>
 
-            <button class="callback-modal__submit" type="submit">
-              {{ submitText }}
+            <button class="callback-modal__submit" type="submit" :disabled="isSubmitting">
+              {{ isSubmitting ? 'Отправляем...' : submitText }}
             </button>
 
             <p v-if="formMessage" class="callback-modal__message">
@@ -242,6 +258,12 @@ onBeforeUnmount(() => {
 .callback-modal__submit:hover {
   box-shadow: 0 22px 46px rgba(201, 154, 75, 0.34);
   transform: translateY(-1px);
+}
+
+.callback-modal__submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
 }
 
 .callback-modal__message {

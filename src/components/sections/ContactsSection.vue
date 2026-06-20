@@ -125,7 +125,7 @@ function closeCallbackModal() {
       </div>
     </AppContainer>
 
-    <CallbackModal v-if="isCallbackModalOpen" @close="closeCallbackModal" />
+    <CallbackModal v-if="isCallbackModalOpen" source="Контакты" @close="closeCallbackModal" />
   </section>
 </template>
 
