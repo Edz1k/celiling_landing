@@ -19,4 +19,6 @@ export const contactSchedule = 'Ежедневно с 9:00 до 21:00'
 
 export const whatsappLink = 'https://wa.me/79931897170'
 
+export const telegramLink = 'https://t.me/Olegsibgroup'
+
 export const maxLink = 'https://max.ru/u/f9LHodD0cOJ4vG-tUatKytQvCD4AsWeChQJQaMwCqOxEwpPkzN_ZQCdpq7Q'

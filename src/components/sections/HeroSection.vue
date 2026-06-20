@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { maxLink, whatsappLink } from '~/data/contacts'
+import { maxLink, telegramLink, whatsappLink } from '~/data/contacts'
 
 const isCallbackModalOpen = ref(false)
 
@@ -68,7 +68,13 @@ function closeCallbackModal() {
                   <path d="M12 2.4A9.5 9.5 0 0 0 3.9 17l-1 4.6 4.7-1A9.5 9.5 0 1 0 12 2.4Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.6.6-2.7-.2-.3a7.6 7.6 0 1 1 6.6 3.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.6-1.4-.8-1.9c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a10.2 10.2 0 0 0 4 3.5c1.5.6 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .2-1.1-.1-.1-.2-.2-.4-.3Z" />
                 </svg>
               </a>
-              <a class="hero-section__messenger hero-section__messenger--telegram" href="#contacts" aria-label="Написать в Telegram">
+              <a
+                class="hero-section__messenger hero-section__messenger--telegram"
+                :href="telegramLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Написать в Telegram"
+              >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M20.9 4.4 18 18.1c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.6 12.2 2.2 10.8c-1-.3-1-1 .2-1.5L19.6 2.7c.8-.3 1.5.2 1.3 1.7Z" />
                 </svg>
@@ -96,7 +102,7 @@ function closeCallbackModal() {
       </div>
     </AppContainer>
 
-    <CallbackModal v-if="isCallbackModalOpen" @close="closeCallbackModal" />
+    <CallbackModal v-if="isCallbackModalOpen" source="Главный экран" @close="closeCallbackModal" />
   </section>
 </template>
 

@@ -10,6 +10,8 @@ const emit = defineEmits<{
 }>()
 
 const formMessage = ref('')
+const isSubmitting = ref(false)
+const { sendTelegramLead } = useTelegramApi()
 
 const requestForm = reactive({
   area: '',
@@ -24,20 +26,37 @@ function closeModal() {
   emit('close')
 }
 
-function submitRequest() {
-  const requestDraft = {
-    selectedType: props.type,
-    area: requestForm.area,
-    lights: requestForm.lights,
-    curtainMeters: requestForm.curtainMeters,
-    name: requestForm.name,
-    phone: requestForm.phone,
-    comment: requestForm.comment,
+async function submitRequest() {
+  formMessage.value = ''
+
+  if (!requestForm.name.trim() || !requestForm.phone.trim()) {
+    formMessage.value = 'Укажите имя и номер телефона.'
+    return
   }
 
-  // eslint-disable-next-line no-console
-  console.log(requestDraft)
-  formMessage.value = 'Заявка подготовлена. Отправку подключим позже.'
+  isSubmitting.value = true
+
+  try {
+    await sendTelegramLead({
+      source: 'Калькулятор / Виды потолков',
+      selectedType: props.type.title,
+      area: requestForm.area,
+      lights: requestForm.lights,
+      curtainMeters: requestForm.curtainMeters,
+      price: props.type.price,
+      name: requestForm.name,
+      phone: requestForm.phone,
+      comment: requestForm.comment,
+    })
+
+    formMessage.value = 'Спасибо! Заявка отправлена, мы скоро свяжемся с вами.'
+  }
+  catch {
+    formMessage.value = 'Не удалось отправить заявку. Попробуйте написать нам в WhatsApp или Telegram.'
+  }
+  finally {
+    isSubmitting.value = false
+  }
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -137,12 +156,12 @@ onBeforeUnmount(() => {
               <div class="catalog-modal__request">
                 <label>
                   <span>Имя</span>
-                  <input v-model="requestForm.name" type="text" autocomplete="name" placeholder="Ваше имя">
+                  <input v-model="requestForm.name" type="text" autocomplete="name" placeholder="Ваше имя" required>
                 </label>
 
                 <label>
                   <span>Телефон</span>
-                  <input v-model="requestForm.phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__">
+                  <input v-model="requestForm.phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required>
                 </label>
 
                 <label class="catalog-modal__wide">
@@ -153,8 +172,8 @@ onBeforeUnmount(() => {
             </section>
 
             <div class="catalog-modal__actions">
-              <button class="catalog-modal__submit" type="submit">
-                Оставить заявку
+              <button class="catalog-modal__submit" type="submit" :disabled="isSubmitting">
+                {{ isSubmitting ? 'Отправляем...' : 'Оставить заявку' }}
               </button>
               <p v-if="formMessage" class="catalog-modal__message">
                 {{ formMessage }}
@@ -462,6 +481,12 @@ onBeforeUnmount(() => {
 .catalog-modal__submit:hover {
   box-shadow: 0 22px 46px rgba(201, 154, 75, 0.34);
   transform: translateY(-1px);
+}
+
+.catalog-modal__submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
 }
 
 .catalog-modal__message {

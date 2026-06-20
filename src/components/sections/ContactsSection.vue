@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { contactSchedule, maxLink, phoneNumbers, whatsappLink } from '~/data/contacts'
+import { contactSchedule, maxLink, phoneNumbers, telegramLink, whatsappLink } from '~/data/contacts'
 
 const messengers = [
   {
@@ -10,7 +10,7 @@ const messengers = [
   {
     id: 'telegram',
     label: 'Telegram',
-    href: undefined,
+    href: telegramLink,
   },
   {
     id: 'max',
@@ -125,7 +125,7 @@ function closeCallbackModal() {
       </div>
     </AppContainer>
 
-    <CallbackModal v-if="isCallbackModalOpen" @close="closeCallbackModal" />
+    <CallbackModal v-if="isCallbackModalOpen" source="Контакты" @close="closeCallbackModal" />
   </section>
 </template>
 
