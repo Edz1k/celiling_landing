@@ -1,0 +1,104 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Create production environment
+        run: |
+          printf '%s\n' \
+            "VITE_TELEGRAM_API_KEY=${{ secrets.VITE_TELEGRAM_API_KEY }}" \
+            "VITE_TELEGRAM_CHAT_ID=${{ secrets.VITE_TELEGRAM_CHAT_ID }}" \
+            > .env
+
+      - name: Build image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          load: true
+          tags: ceiling-landing:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Export image
+        run: docker save "ceiling-landing:${{ github.sha }}" | gzip > ceiling-landing.tar.gz
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ceiling-landing-image
+          path: ceiling-landing.tar.gz
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ceiling-landing-image
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload image to server
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          scp -i ~/.ssh/deploy_key ceiling-landing.tar.gz \
+            "$SERVER_USER@$SERVER_HOST:/tmp/ceiling-landing.tar.gz"
+
+      - name: Deploy container
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SERVER_USER@$SERVER_HOST" \
+            "IMAGE_TAG='${{ github.sha }}' bash -s" <<'EOF'
+            set -eu
+            gunzip -c /tmp/ceiling-landing.tar.gz | docker load
+            rm -f /tmp/ceiling-landing.tar.gz
+            docker rm -f ceiling-landing 2>/dev/null || true
+            docker run -d \
+              --name ceiling-landing \
+              --restart unless-stopped \
+              -p 127.0.0.1:8080:80 \
+              "ceiling-landing:$IMAGE_TAG"
+            docker image prune -f
+          EOF
+
+      - name: Verify deployment
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SERVER_USER@$SERVER_HOST" \
+            "curl --fail --silent --show-error --retry 10 --retry-delay 2 http://127.0.0.1:8080/ >/dev/null"

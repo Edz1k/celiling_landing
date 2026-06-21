@@ -1,14 +1,15 @@
-FROM node:20-alpine AS build-stage
+FROM node:24-alpine AS build-stage
 
 WORKDIR /app
 RUN corepack enable
+ENV CYPRESS_INSTALL_BINARY=0
 
 COPY .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
     pnpm install --frozen-lockfile
 
 COPY . .
-RUN pnpm build
+RUN node --version && pnpm build
 
 FROM nginx:stable-alpine AS production-stage
 
