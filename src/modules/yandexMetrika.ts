@@ -1,6 +1,6 @@
 import type { UserModule } from '~/types'
 
-const metrikaId = Number(import.meta.env.VITE_YANDEX_METRIKA_ID || 110069608)
+const metrikaId = 110069608
 
 function installMetrika(id: number) {
   window.ym = window.ym || function (...args: unknown[]) {
