@@ -5,16 +5,17 @@ function submitCallbackForm(expectedSource: string, expectedOption = '') {
   cy.get('.callback-modal__submit').click().should('be.disabled')
 
   cy.wait('@lead').then(({ request }) => {
-    expect(request.body).to.include({
-      comment: 'Проверка формы',
-      name: 'Тест сайта',
-      phone: '+7 000 000-00-00',
-      source: expectedSource,
-    })
-    expect(request.body.submittedAt).to.be.a('string')
+    const payload = new URLSearchParams(request.body)
+    const message = payload.get('text') || ''
+
+    expect(payload.get('chat_id')).not.to.equal('')
+    expect(message).to.include('💬 Комментарий: Проверка формы')
+    expect(message).to.include('👤 Имя: Тест сайта')
+    expect(message).to.include('📞 Телефон: +7 000 000-00-00')
+    expect(message).to.include(`📍 Источник: ${expectedSource}`)
 
     if (expectedOption)
-      expect(request.body.selectedOption).to.eq(expectedOption)
+      expect(message).to.include(`🔧 Выбранное решение: ${expectedOption}`)
   })
 
   cy.contains('.callback-modal__message', 'Спасибо! Заявка отправлена').should('be.visible')
@@ -25,7 +26,7 @@ function submitCallbackForm(expectedSource: string, expectedOption = '') {
 
 describe('lead forms', () => {
   beforeEach(() => {
-    cy.intercept('POST', '/api/telegram-lead', {
+    cy.intercept('POST', 'https://api.telegram.org/bot*/sendMessage', {
       delay: 150,
       statusCode: 200,
       body: { ok: true },
@@ -71,17 +72,17 @@ describe('lead forms', () => {
     cy.get('.catalog-modal__submit').click().should('be.disabled')
 
     cy.wait('@lead').then(({ request }) => {
-      expect(request.body).to.include({
-        area: 18,
-        comment: 'Проверка калькулятора',
-        curtainMeters: 3,
-        lights: 6,
-        name: 'Тест сайта',
-        phone: '+7 000 000-00-00',
-        selectedType: 'Глянцевые потолки',
-        source: 'Калькулятор / Виды потолков',
-      })
-      expect(request.body.submittedAt).to.be.a('string')
+      const payload = new URLSearchParams(request.body)
+      const message = payload.get('text') || ''
+
+      expect(message).to.include('📐 Площадь: 18 м²')
+      expect(message).to.include('💬 Комментарий: Проверка калькулятора')
+      expect(message).to.include('📏 Гардина: 3 м')
+      expect(message).to.include('💡 Светильники: 6')
+      expect(message).to.include('👤 Имя: Тест сайта')
+      expect(message).to.include('📞 Телефон: +7 000 000-00-00')
+      expect(message).to.include('🏠 Тип потолка: Глянцевые потолки')
+      expect(message).to.include('📍 Источник: Калькулятор / Виды потолков')
     })
 
     cy.contains('.catalog-modal__message', 'Спасибо! Заявка отправлена').should('be.visible')

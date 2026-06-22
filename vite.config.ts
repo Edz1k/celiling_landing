@@ -1,6 +1,4 @@
-import type { Plugin } from 'vite'
 import path from 'node:path'
-import process from 'node:process'
 import Shiki from '@shikijs/markdown-it'
 import { unheadVueComposablesImports } from '@unhead/vue'
 import Vue from '@vitejs/plugin-vue'
@@ -10,49 +8,15 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import generateSitemap from 'vite-ssg-sitemap'
 import { VueRouterAutoImports } from 'vue-router/unplugin'
 import VueRouter from 'vue-router/vite'
-import { handler as sendTelegramLeadHandler } from './netlify/functions/send-telegram-lead.mjs'
 import { siteDescription, siteName, siteUrl } from './src/data/site'
 import 'vitest/config'
-
-function localLeadEndpoint(): Plugin {
-  return {
-    name: 'local-telegram-lead-endpoint',
-    apply: 'serve',
-    configResolved(config) {
-      const env = loadEnv(config.mode, config.root, '')
-
-      process.env.TELEGRAM_BOT_TOKEN ||= env.TELEGRAM_BOT_TOKEN || env.VITE_TELEGRAM_API_KEY
-      process.env.TELEGRAM_CHAT_ID ||= env.TELEGRAM_CHAT_ID || env.VITE_TELEGRAM_CHAT_ID
-    },
-    configureServer(server) {
-      server.middlewares.use('/api/telegram-lead', async (request, response) => {
-        let body = ''
-
-        for await (const chunk of request)
-          body += chunk
-
-        const result = await sendTelegramLeadHandler({
-          httpMethod: request.method || 'GET',
-          body,
-        })
-
-        response.statusCode = result.statusCode
-
-        for (const [name, value] of Object.entries(result.headers || {}))
-          response.setHeader(name, value)
-
-        response.end(result.body)
-      })
-    },
-  }
-}
 
 export default defineConfig({
   resolve: {
@@ -62,7 +26,6 @@ export default defineConfig({
   },
 
   plugins: [
-    localLeadEndpoint(),
     // https://github.com/vuejs/router
     VueRouter({
       extensions: ['.vue', '.md'],

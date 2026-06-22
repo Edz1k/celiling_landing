@@ -2,17 +2,8 @@
 publish = "dist"
 command = "pnpm run build"
 
-[functions]
-directory = "netlify/functions"
-
 [build.environment]
 NODE_VERSION = "22"
-
-[[redirects]]
-from = "/api/telegram-lead"
-to = "/.netlify/functions/send-telegram-lead"
-status = 200
-force = true
 
 [[redirects]]
 from = "/*"

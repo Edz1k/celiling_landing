@@ -106,14 +106,14 @@ dist/
 
 ### Настройка отправки заявок в Telegram
 
-Добавьте в Netlify в разделе Environment variables:
+Добавьте в `.env`:
 
 ```text
-TELEGRAM_BOT_TOKEN=токен Telegram-бота
-TELEGRAM_CHAT_ID=ID чата для заявок
+VITE_TELEGRAM_API_KEY=токен Telegram-бота
+VITE_TELEGRAM_CHAT_ID=ID чата для заявок
 ```
 
-После изменения переменных запустите новый deploy. Токен используется только Netlify Function и не попадает в клиентскую сборку.
+Заявки отправляются напрямую в Telegram Bot API. Переменные с префиксом `VITE_` попадают в клиентскую сборку.
 
 ⸻
 
