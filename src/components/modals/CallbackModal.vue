@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { sendTelegramLead } from '~/services/telegramLead'
+
 const props = withDefaults(defineProps<{
   selectedOption?: string
   source?: string
@@ -19,7 +21,6 @@ const emit = defineEmits<{
 
 const formMessage = ref('')
 const isSubmitting = ref(false)
-const { sendTelegramLead } = useTelegramApi()
 
 const callbackForm = reactive({
   comment: '',
@@ -32,6 +33,9 @@ function closeModal() {
 }
 
 async function submitCallback() {
+  if (isSubmitting.value)
+    return
+
   formMessage.value = ''
 
   if (!callbackForm.name.trim() || !callbackForm.phone.trim()) {
@@ -50,6 +54,9 @@ async function submitCallback() {
       comment: callbackForm.comment,
     })
 
+    callbackForm.comment = ''
+    callbackForm.name = ''
+    callbackForm.phone = ''
     formMessage.value = 'Спасибо! Заявка отправлена, мы скоро свяжемся с вами.'
   }
   catch {
