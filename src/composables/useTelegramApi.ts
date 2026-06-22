@@ -47,15 +47,14 @@ export function useTelegramApi() {
       throw new Error('Telegram-бот не настроен.')
 
     try {
+      const body = new URLSearchParams({
+        chat_id: chatId,
+        text: message,
+      })
+
       const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-        }),
+        body,
       })
 
       if (!response.ok)
