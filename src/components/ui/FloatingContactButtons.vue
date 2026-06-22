@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { phoneNumbers, whatsappLink } from '~/data/contacts'
+import { maxLink, phoneNumbers } from '~/data/contacts'
 
 const primaryPhone = phoneNumbers[0]
 </script>
@@ -17,21 +17,19 @@ const primaryPhone = phoneNumbers[0]
     </a>
 
     <a
-      class="floating-contact-buttons__button floating-contact-buttons__button--whatsapp"
-      :href="whatsappLink"
+      class="floating-contact-buttons__button floating-contact-buttons__button--max"
+      :href="maxLink"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Написать в WhatsApp"
+      aria-label="Написать в MAX"
     >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2.4A9.5 9.5 0 0 0 3.9 17l-1 4.6 4.7-1A9.5 9.5 0 1 0 12 2.4Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.6.6-2.7-.2-.3a7.6 7.6 0 1 1 6.6 3.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.6-1.4-.8-1.9c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.7 1.2 2.9a10.2 10.2 0 0 0 4 3.5c1.5.6 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .2-1.1-.1-.1-.2-.2-.4-.3Z" />
-      </svg>
+      MAX
     </a>
   </div>
 </template>
 
 <style scoped>
-/* Фиксированные CTA-кнопки: быстрый звонок и WhatsApp поверх основного контента. */
+/* Фиксированные CTA-кнопки: быстрый звонок и MAX поверх основного контента. */
 .floating-contact-buttons {
   pointer-events: none;
 }
@@ -69,10 +67,13 @@ const primaryPhone = phoneNumbers[0]
   color: #fff;
 }
 
-.floating-contact-buttons__button--whatsapp {
+.floating-contact-buttons__button--max {
   right: 32px;
-  background: linear-gradient(135deg, #2bd366, #149f47);
+  background: #262626;
   color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 @media (max-width: 1020px) {
@@ -91,7 +92,7 @@ const primaryPhone = phoneNumbers[0]
     left: 24px;
   }
 
-  .floating-contact-buttons__button--whatsapp {
+  .floating-contact-buttons__button--max {
     right: 24px;
   }
 }
@@ -112,7 +113,7 @@ const primaryPhone = phoneNumbers[0]
     left: 16px;
   }
 
-  .floating-contact-buttons__button--whatsapp {
+  .floating-contact-buttons__button--max {
     right: 16px;
   }
 }

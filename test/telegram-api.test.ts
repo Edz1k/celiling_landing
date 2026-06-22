@@ -18,6 +18,27 @@ afterEach(() => {
 })
 
 describe('telegram lead service', () => {
+  it.each([
+    'Глянцевые потолки',
+    'Матовые потолки',
+    'Сатиновые потолки',
+    'Тканевые потолки',
+  ])('отправляет заявку для типа «%s»', async (selectedType) => {
+    vi.stubEnv('VITE_TELEGRAM_API_KEY', 'test-token')
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await useTelegramApi().sendTelegramLead({
+      ...lead,
+      selectedType,
+    })
+
+    const [, options] = fetchMock.mock.calls[0]
+    const payload = options.body as URLSearchParams
+
+    expect(payload.get('text')).toContain(`🏠 Тип потолка: ${selectedType}`)
+  })
+
   it('отправляет все поля заявки в нужный чат', async () => {
     vi.stubEnv('VITE_TELEGRAM_API_KEY', 'test-token')
     vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '6991300314')
@@ -28,16 +49,17 @@ describe('telegram lead service', () => {
     await useTelegramApi().sendTelegramLead(lead)
 
     const [url, options] = fetchMock.mock.calls[0]
-    const payload = JSON.parse(options.body)
+    const payload = options.body as URLSearchParams
 
     expect(url).toBe('https://api.telegram.org/bottest-token/sendMessage')
-    expect(payload.chat_id).toBe('6991300314')
-    expect(payload.text).toContain('📥 Новая заявка с сайта')
-    expect(payload.text).toContain('📐 Площадь: 18 м²')
-    expect(payload.text).toContain('💡 Светильники: 6')
-    expect(payload.text).toContain('🏠 Тип потолка: Матовый потолок')
-    expect(payload.text).toContain('💰 Расчет: от 150 ₽/м²')
-    expect(payload.text).toContain('📍 Источник: Калькулятор')
+    expect(payload).toBeInstanceOf(URLSearchParams)
+    expect(payload.get('chat_id')).toBe('6991300314')
+    expect(payload.get('text')).toContain('📥 Новая заявка с сайта')
+    expect(payload.get('text')).toContain('📐 Площадь: 18 м²')
+    expect(payload.get('text')).toContain('💡 Светильники: 6')
+    expect(payload.get('text')).toContain('🏠 Тип потолка: Матовый потолок')
+    expect(payload.get('text')).toContain('💰 Расчет: от 150 ₽/м²')
+    expect(payload.get('text')).toContain('📍 Источник: Калькулятор')
   })
 
   it('не отправляет форму без обязательных полей', async () => {
