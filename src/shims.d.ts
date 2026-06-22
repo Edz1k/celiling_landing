@@ -1,5 +1,9 @@
 declare interface Window {
-  // extend the window
+  ym?: {
+    (...args: unknown[]): void
+    a?: unknown[][]
+    l?: number
+  }
 }
 
 // with unplugin-vue-markdown, markdown files can be treated as Vue components
