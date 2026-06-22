@@ -100,7 +100,14 @@ onBeforeUnmount(() => {
           <!-- Верх модалки: слева визуальный placeholder, справа информация о материале -->
           <div class="catalog-modal__hero">
             <div class="catalog-modal__image" :style="{ background: type.fallbackGradient }">
-              <img v-if="type.image" :src="type.image" :alt="type.imageAlt">
+              <img
+                v-if="type.image"
+                :src="type.image"
+                :alt="type.imageAlt"
+                width="1536"
+                height="1024"
+                decoding="async"
+              >
               <div v-else class="catalog-modal__image-card">
                 <span>{{ type.title.slice(0, 1) }}</span>
                 <p>{{ type.imageAlt }}</p>

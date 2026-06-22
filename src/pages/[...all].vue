@@ -1,10 +1,18 @@
 <script setup lang="ts">
-
+useHead({
+  title: 'Страница не найдена — СИБ ГРУП',
+  meta: [
+    {
+      name: 'robots',
+      content: 'noindex, nofollow',
+    },
+  ],
+})
 </script>
 
 <template>
   <div>
-    Not Found.
+    Страница не найдена.
   </div>
 </template>
 

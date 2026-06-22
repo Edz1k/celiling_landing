@@ -25,11 +25,8 @@ function closeCallbackModal() {
           <h1 class="hero-section__title">
             <span>Натяжные</span>
             <span>потолки</span>
+            <span class="hero-section__location">В Новосибирске</span>
           </h1>
-
-          <p class="hero-section__location">
-            В Новосибирске
-          </p>
 
           <p class="hero-section__text">
             Качественные натяжные потолки с установкой под ключ за 1 день без пыли и грязи

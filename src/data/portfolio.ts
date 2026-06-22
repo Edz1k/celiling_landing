@@ -9,6 +9,8 @@ export interface PortfolioItem {
   description: string
   image: string
   imageAlt: string
+  imageHeight: number
+  imageWidth: number
   characteristics: PortfolioCharacteristic[]
 }
 
@@ -29,6 +31,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Матовый натяжной потолок с парящей подсветкой по периметру и декоративными световыми линиями. Такое решение визуально делает помещение выше и подчеркивает нестандартную геометрию интерьера.',
     image: getPortfolioImage('portfolio-01-paryashchiy-potolok.jpg'),
     imageAlt: 'Парящий натяжной потолок сложной геометрии с подсветкой',
+    imageHeight: 1280,
+    imageWidth: 960,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый, парящий' },
       { label: 'Освещение', value: 'LED-подсветка по периметру, декоративные линии, слот система' },
@@ -42,6 +46,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Матовое полотно с теплой светодиодной подсветкой по периметру. В проекте также предусмотрены точки под встроенное освещение, что делает потолок практичным и современным.',
     image: getPortfolioImage('portfolio-02-konturnaya-podsvetka.jpg'),
     imageAlt: 'Парящий натяжной потолок с контурной подсветкой',
+    imageHeight: 1280,
+    imageWidth: 960,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый, парящий' },
       { label: 'Освещение', value: 'Контурная подсветка, точки под светильники' },
@@ -55,6 +61,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Современный натяжной потолок с аккуратным теневым примыканием к стенам. Без лишних декоративных вставок - только ровные линии, чистая геометрия и мягкая подсветка.',
     image: getPortfolioImage('portfolio-03-tenevoy-potolok.jpg'),
     imageAlt: 'Натяжной потолок с теневым примыканием',
+    imageHeight: 1280,
+    imageWidth: 960,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый, теневой' },
       { label: 'Освещение', value: 'Точечные светильники, скрытая подсветка, люстра' },
@@ -68,6 +76,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Лаконичный потолок с мягкой скрытой подсветкой вдоль стены и встроенными квадратными светильниками. Хороший вариант для современных интерьеров в спокойном стиле.',
     image: getPortfolioImage('portfolio-04-skrytaya-podsvetka.jpg'),
     imageAlt: 'Матовый потолок со скрытой подсветкой',
+    imageHeight: 546,
+    imageWidth: 728,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый' },
       { label: 'Освещение', value: 'Скрытая подсветка, встроенные светильники' },
@@ -81,6 +91,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Матовое полотно с теневым профилем и магнитными треками. Такое решение делает стык потолка и стен аккуратным, а интерьер визуально более дорогим.',
     image: getPortfolioImage('portfolio-05-tenevoe-primykanie.jpg'),
     imageAlt: 'Теневой потолок в современном интерьере',
+    imageHeight: 1600,
+    imageWidth: 1204,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый, теневой' },
       { label: 'Освещение', value: 'Магнитные треки' },
@@ -94,6 +106,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Современный потолок с интегрированными световыми линиями. Такой вариант хорошо подходит для помещений, где освещение становится частью дизайна.',
     image: getPortfolioImage('portfolio-06-lineynoe-osveshchenie.jpg'),
     imageAlt: 'Потолок с линейным освещением',
+    imageHeight: 864,
+    imageWidth: 1152,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый' },
       { label: 'Освещение', value: 'Встроенные световые линии' },
@@ -107,6 +121,8 @@ export const portfolioItems: PortfolioItem[] = [
     description: 'Матовый потолок со скрытой подсветкой и декоративным оформлением по периметру. Решение сочетает классические элементы интерьера и современную подсветку.',
     image: getPortfolioImage('portfolio-07-dekorativnyy-karniz.jpg'),
     imageAlt: 'Парящий потолок с декоративным карнизом',
+    imageHeight: 1280,
+    imageWidth: 960,
     characteristics: [
       { label: 'Тип потолка', value: 'Матовый, парящий' },
       { label: 'Освещение', value: 'Скрытая LED-подсветка, люстры' },

@@ -18,6 +18,7 @@ import generateSitemap from 'vite-ssg-sitemap'
 import { VueRouterAutoImports } from 'vue-router/unplugin'
 import VueRouter from 'vue-router/vite'
 import { handler as sendTelegramLeadHandler } from './netlify/functions/send-telegram-lead.mjs'
+import { siteDescription, siteName, siteUrl } from './src/data/site'
 import 'vitest/config'
 
 function localLeadEndpoint(): Plugin {
@@ -140,9 +141,15 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
       manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
-        theme_color: '#ffffff',
+        name: `${siteName} — натяжные потолки`,
+        short_name: siteName,
+        description: siteDescription,
+        lang: 'ru',
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        background_color: '#fffaf2',
+        theme_color: '#fffaf2',
         icons: [
           {
             src: '/pwa-192x192.png',
@@ -182,7 +189,12 @@ export default defineConfig({
       reduceInlineStyles: false,
     },
     onFinished() {
-      generateSitemap()
+      generateSitemap({
+        hostname: siteUrl,
+        exclude: ['/README'],
+        changefreq: 'weekly',
+        generateRobotsTxt: false,
+      })
     },
   },
 
