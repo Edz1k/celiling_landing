@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: sibgroup-potolok.ru
+Sitemap: https://sibgroup-potolok.ru/sitemap.xml

@@ -37,7 +37,15 @@ function closeMaterial() {
           @keydown.space.prevent="openMaterial(type)"
         >
           <div class="ceiling-types-section__image" :style="{ background: type.fallbackGradient }">
-            <img v-if="type.image" :src="type.image" :alt="type.imageAlt">
+            <img
+              v-if="type.image"
+              :src="type.image"
+              :alt="type.imageAlt"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
             <span v-else>{{ type.title.slice(0, 1) }}</span>
           </div>
 

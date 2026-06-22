@@ -65,7 +65,15 @@ onBeforeUnmount(() => {
           @keydown.space.prevent="openOption(option)"
         >
           <div class="additional-options-section__visual" :style="{ background: option.gradient }">
-            <img v-if="option.image" :src="option.image" :alt="option.imageAlt">
+            <img
+              v-if="option.image"
+              :src="option.image"
+              :alt="option.imageAlt"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
             <div v-else class="additional-options-section__placeholder" aria-hidden="true" />
             <span class="additional-options-section__arrow" aria-hidden="true">→</span>
           </div>
@@ -108,7 +116,14 @@ onBeforeUnmount(() => {
 
           <div class="additional-option-modal__window">
             <div class="additional-option-modal__image" :style="{ background: selectedOption.gradient }">
-              <img v-if="selectedOption.image" :src="selectedOption.image" :alt="selectedOption.imageAlt">
+              <img
+                v-if="selectedOption.image"
+                :src="selectedOption.image"
+                :alt="selectedOption.imageAlt"
+                width="1536"
+                height="1024"
+                decoding="async"
+              >
               <div v-else class="additional-option-modal__placeholder" aria-hidden="true" />
             </div>
 

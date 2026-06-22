@@ -65,7 +65,15 @@ onBeforeUnmount(() => {
           @keydown.space.prevent="openPortfolioItem(item)"
         >
           <div class="portfolio-section__preview">
-            <img v-if="item.image" :src="item.image" :alt="item.imageAlt">
+            <img
+              v-if="item.image"
+              :src="item.image"
+              :alt="item.imageAlt"
+              :width="item.imageWidth"
+              :height="item.imageHeight"
+              loading="lazy"
+              decoding="async"
+            >
             <div v-else class="portfolio-section__placeholder" aria-hidden="true" />
 
             <div class="portfolio-section__overlay" aria-hidden="true" />
@@ -103,7 +111,14 @@ onBeforeUnmount(() => {
 
           <div class="portfolio-modal__window">
             <div class="portfolio-modal__image">
-              <img v-if="selectedItem.image" :src="selectedItem.image" :alt="selectedItem.imageAlt">
+              <img
+                v-if="selectedItem.image"
+                :src="selectedItem.image"
+                :alt="selectedItem.imageAlt"
+                :width="selectedItem.imageWidth"
+                :height="selectedItem.imageHeight"
+                decoding="async"
+              >
               <div v-else class="portfolio-modal__placeholder" aria-hidden="true" />
             </div>
 
