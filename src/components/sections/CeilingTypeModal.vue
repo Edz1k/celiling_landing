@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CeilingType } from '~/data/ceilingTypes'
+import { sendTelegramLead } from '~/services/telegramLead'
 
 const props = defineProps<{
   type: CeilingType
@@ -11,7 +12,6 @@ const emit = defineEmits<{
 
 const formMessage = ref('')
 const isSubmitting = ref(false)
-const { sendTelegramLead } = useTelegramApi()
 
 const requestForm = reactive({
   area: '',
@@ -27,6 +27,9 @@ function closeModal() {
 }
 
 async function submitRequest() {
+  if (isSubmitting.value)
+    return
+
   formMessage.value = ''
 
   if (!requestForm.name.trim() || !requestForm.phone.trim()) {
@@ -49,6 +52,12 @@ async function submitRequest() {
       comment: requestForm.comment,
     })
 
+    requestForm.area = ''
+    requestForm.comment = ''
+    requestForm.curtainMeters = ''
+    requestForm.lights = ''
+    requestForm.name = ''
+    requestForm.phone = ''
     formMessage.value = 'Спасибо! Заявка отправлена, мы скоро свяжемся с вами.'
   }
   catch {

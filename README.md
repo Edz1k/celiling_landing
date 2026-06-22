@@ -104,6 +104,17 @@ pnpm build
 
 dist/
 
+### Настройка отправки заявок в Telegram
+
+Добавьте в Netlify в разделе Environment variables:
+
+```text
+TELEGRAM_BOT_TOKEN=токен Telegram-бота
+TELEGRAM_CHAT_ID=ID чата для заявок
+```
+
+После изменения переменных запустите новый deploy. Токен используется только Netlify Function и не попадает в клиентскую сборку.
+
 ⸻
 
 📁 Структура проекта
